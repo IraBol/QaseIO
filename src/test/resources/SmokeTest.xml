@@ -1,0 +1,34 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">-->
+<!--<suite name="SauceDemo Smoke Test" thread-count="4" parallel="tests">-->
+
+<!--    <listeners>-->
+<!--        <listener class-name="tests.base.AnnotationTransformer"></listener>-->
+<!--        <listener class-name="tests.base.TestListener"></listener>-->
+<!--    </listeners>-->
+
+<!--    <test name="Thread #1">-->
+<!--        <classes>-->
+<!--            <class name="tests.LoginTest"/>-->
+<!--        </classes>-->
+<!--    </test> &lt;!&ndash; Test &ndash;&gt;-->
+
+<!--    <test name="Thread #2">-->
+<!--        <classes>-->
+<!--            <class name="tests.CartTest"/>-->
+<!--        </classes>-->
+<!--    </test> &lt;!&ndash; Test &ndash;&gt;-->
+
+<!--    <test name="Thread #3">-->
+<!--        <classes>-->
+<!--            <class name="tests.MainPageTest"/>-->
+<!--        </classes>-->
+<!--    </test> &lt;!&ndash; Test &ndash;&gt;-->
+
+<!--    <test name="Thread #4">-->
+<!--        <classes>-->
+<!--            <class name="tests.HamburgerMenuTest"/>-->
+<!--        </classes>-->
+<!--    </test> &lt;!&ndash; Test &ndash;&gt;-->
+
+<!--</suite>-->
