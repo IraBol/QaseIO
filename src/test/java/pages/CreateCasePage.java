@@ -35,51 +35,43 @@ public class CreateCasePage extends BasePage {
         return this;
     }
 
-    public static void isPlaceholderPresent() {
-
-    }
-
     public static void placeholderTextShouldBeVisible() {
-
+//        you can check placeholder Attribute text:
+//
+//        attribute("placeholder", "some text") // $(“#list li”).shouldHave(attribute(“placeholder”, “some text”))
     }
-//    File file = new File("src/test/resources/58a05716650f315a32542f8e.png");
-//
-//        driver.findElement(By.xpath("//button[text()='Add attachment']")).sendKeys(file.getAbsolutePath());
-//
-//        Assert.assertEquals(file.getName(), "58a05716650f315a32542f8e.png");
-    public void fillOutTestCaseForm(Case testCase) {
 
+    public void fillOutTestCaseForm(Case testCase) {
+        //Basic
         new Input().write("Title", "title", testCase.getTitle());
         new DropDown().setDropdownValue("Status", testCase.getStatus());
         new TextArea().write("Description", testCase.getDescription());
-        new DropDown().setMilestoneDropdownValue(testCase.getMilestone());
         new DropDown().setSuiteDropdownValue(testCase.getSuite());
-//        new DropDown().setTestCaseStepsDropdownValue(testCase.getTestCaseSteps());
-//        new DropDown();
-//        new DropDown();
-//        new DropDown();
-//        new DropDown();
-//        new DropDown();
-//        new DropDown();
-//        new CheckBox();
-//        new Input();
-//        new Input();
-//
+        new DropDown().setDropdownValue("Severity", testCase.getSeverity());
+        new DropDown().setDropdownValue("Priority", testCase.getPriority());
+        new DropDown().setDropdownValue("Type", testCase.getType());
+        new DropDown().setDropdownValue("Layer", testCase.getLayer());
+        new DropDown().setDropdownValue("Is flaky", testCase.getIsFlaky());
+        new DropDown().setMilestoneDropdownValue(testCase.getMilestone());
+        new DropDown().setDropdownValue("Behavior", testCase.getBehavior());
+        new DropDown().setDropdownValue("Automation status", testCase.getAutomationStatus());
+        new CheckBox().selectCheckBoxOption("To be automated", "ToBeAutomated", testCase.isCheckBoxChecked());
+        //Conditions
+        new Input().write("Pre-conditions", "0-preconditions", testCase.getPreConditions());
+        new Input().write("Post-conditions", "0-postconditions", testCase.getPostConditions());
+        //Tags
+        new DropDown().setTagsValue("Tags", testCase.getTags());
+        //Attachments
         new Input().uploadFile(testCase.getAddAttachment());
-//        new Button();
-//        new Input();
-//        new Button();
-//        new Input();
-//        new Button();
-//        new Button();
-//
-//        new Button();
-//        new Button();
-//        new DropDown();
+        //Parameters
+        new Input().addParameters("Parameter title", testCase.getParameterTitle());
+        new Input().addParameters("Parameter values", testCase.getParameterValue());
+        //Test Case Steps
+        new DropDown().setTestCaseStepsDropdownValue(testCase.getTestCaseStepsDropDownOption());
 
     }
 
-    public void removeSomeFieldsFromTestCaseForm() {
+    public void editSomeFieldsFromTestCaseForm() {
 
     }
 
@@ -88,11 +80,13 @@ public class CreateCasePage extends BasePage {
         return new ProjectDetailsPage();
     }
 
-    public void clickSaveAndCreateAnotherButton() {
+    public CreateCasePage clickSaveAndCreateAnotherButton() {
         $(By.xpath(SAVE_AND_CREATE_ANOTHER_BUTTON_XPATH)).click();
+        return this;
     }
 
-    public void clickCancelButton() {
+    public ProjectDetailsPage clickCancelButton() {
         $(By.xpath(CANCEL_BUTTON_XPATH)).click();
+        return new ProjectDetailsPage();
     }
 }

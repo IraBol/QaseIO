@@ -7,12 +7,12 @@ import static com.codeborne.selenide.Selenide.$;
 @Log4j2
 public class RadioButton {
 
-    private final String RADIO_BUTTON_XPATH = "//label[text()='%s']/../following-sibling::*//span[text()='%s']";
+    private final String TC_RADIO_BUTTON_XPATH = "//label[text()='%s']/../following-sibling::*//span[text()='%s']";
 
     public void setRadioButtonValue(String label, String option) {
         log.info("Select '{}' radio button inside '{}' ", option, label);
         if (option != null) {
-            $(By.xpath(String.format(RADIO_BUTTON_XPATH, label, option))).click();
+            $(By.xpath(String.format(TC_RADIO_BUTTON_XPATH, label, option))).click();
         }
     }
 }

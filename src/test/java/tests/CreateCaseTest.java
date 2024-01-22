@@ -21,6 +21,8 @@ public class CreateCaseTest extends BaseTest {
                 milestone("Release 1.0").
                 suite("Lol suite").
                 addAttachment(new File("src/test/resources/Screenshot225626.jpg")).
+                isCheckBoxChecked(false).
+
                 build();
 
         projectsListPage.

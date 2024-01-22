@@ -22,6 +22,8 @@ public class DropDown {
     private final String TC_SUITE_DROPDOWN_OPTION_XPATH = "//label[text()='Suite']/following-sibling::div//*[text()='%s']";
     private final String TC_STEPS_DROPDOWN_XPATH = "//div[text()='Test Case Steps']/div";
     private final String TC_STEPS_DROPDOWN_OPTION_XPATH = "//div[text()='Test Case Steps']/div//*[text()='%s']";
+    private final String TC_TAGS_XPATH = "//div[text()='%s']/following-sibling::div[@class='row']//div[contains(@class,'multiValue')]";
+    private final String TC_TAGS_OPTION_XPATH = "//div[text()='%s']/following-sibling::div[@class='row']//*[text()='%s']";
 
     public void setDropdownValue(String label, String option) {
         log.info("Select '{}' option inside '{}' dropdown", option, label);
@@ -47,8 +49,18 @@ public class DropDown {
         }
     }
 
+    public void setTagsValue(String label, String...options) {
+        log.info("Select '{}' option inside '{}' dropdown", options, label);
+        if (options != null) {
+            $(By.xpath(String.format(TC_TAGS_XPATH, label))).click();
+            for (String option : options) {
+                $(By.xpath(String.format(TC_TAGS_OPTION_XPATH, label, option))).click();
+            }
+        }
+    }
+
     public void setTestCaseStepsDropdownValue(String option) {
-        log.info("Select '{}' option inside suite dropdown", option);
+        log.info("Select '{}' option inside test case steps dropdown", option);
         if (option != null) {
             $(By.xpath(String.format(TC_STEPS_DROPDOWN_XPATH))).click();
             $(By.xpath(String.format(TC_STEPS_DROPDOWN_OPTION_XPATH, option))).click();
@@ -63,3 +75,6 @@ public class DropDown {
 
 //div[text()='Test Case Steps']/div//*[text()='Classic'] - TC steps DD
 //div[text()='Test Case Steps']/div//*[text()='%s'] - TC steps DD option
+
+//div[text()='Tags']/following-sibling::div[@class='row']//div[contains(@class,'multiValue')] Tags DD
+//div[text()='Tags']/following-sibling::div[@class='row']//*[text()='Example tag'] Tags DD option

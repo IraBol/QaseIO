@@ -21,13 +21,17 @@ public class Case {
     String milestone;
     String behavior;
     String automationStatus;
+    boolean isCheckBoxChecked;
     //Conditions
     String preConditions;
     String postConditions;
     //Tags
+    String[] tags;
     //Attachments
     File addAttachment;
     //Parameters
+    String parameterTitle;
+    String parameterValue;
     //Test Case Steps
-    String testCaseSteps;
+    String testCaseStepsDropDownOption;
 }
