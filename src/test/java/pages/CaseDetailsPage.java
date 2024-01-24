@@ -1,6 +1,6 @@
 package pages;
 
-public class TestCaseDetailsPage {
+public class CaseDetailsPage {
 
     public static void validateTestCaseFieldsValues() {
 

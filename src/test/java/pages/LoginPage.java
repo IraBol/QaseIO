@@ -1,13 +1,9 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import dto.Login;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import wrappers.Button;
-import wrappers.Input;
 
 import java.time.Duration;
 

@@ -32,7 +32,7 @@ public class ProjectDetailsPage extends BasePage {
         log.info("Verify whether project details list page");
         try {
             $(By.id(CREATE_SUITE_BUTTON_ID)).shouldBe(Condition.visible);
-            $(By.name(CREATE_CASE_BUTTON_ID)).shouldBe(Condition.visible);
+            $(By.id(CREATE_CASE_BUTTON_ID)).shouldBe(Condition.visible);
         } catch (Exception e) {
             log.error("Project details page is not opened");
         }

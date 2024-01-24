@@ -33,5 +33,8 @@ public class Case {
     String parameterTitle;
     String parameterValue;
     //Test Case Steps
-    String testCaseStepsDropDownOption;
+    String testCaseStepsDropdownOption;
+    String gherkinStepsDropdownOption;
+    String gherkinStepsNumber;
+    String gherkinStepsInput;
 }

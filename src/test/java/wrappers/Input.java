@@ -20,9 +20,8 @@ public class Input {
     private static final String TC_INPUT_FILE_XPATH = "//div[@data-react-modal-body-trap][2]/following-sibling::input[@type='file']";
     private static final String TC_ADD_PARAMETER_BUTTON_XPATH = "//button/span[text()='Add parameter']";
     private static final String TC_PARAMETER_INPUT_XPATH = "//label[text()='%s']/following::input";
-    private static final String TC_GHERKIN_ADD_STEP_BUTTON_ID = "gherkin-add-step-btn";
+    private static final String TC_GHERKIN_INPUT_XPATH = "//div[text()='%s']/following::tr//div[text()='%s']/following::input[3]";
 
-    //label[text()='Parameter title']/following::input
 
     public void write(String label, String inputId, String text) {
         log.info("Write '{}' into '{}' input field", text, label);
@@ -39,7 +38,7 @@ public class Input {
         }
     }
 
-    public void addParameters(String label, String text) {
+    public void writeParameterTitle(String label, String text) {
         log.info("Write '{}' into '{}' input field", text, label);
         if (text != null) {
             $(By.xpath(TC_ADD_PARAMETER_BUTTON_XPATH)).click();
@@ -47,19 +46,28 @@ public class Input {
         }
     }
 
-    public void addGherkinSteps() {
-        log.info("Add test case steps");
-        if () {
-            $(By.id(TC_GHERKIN_ADD_STEP_BUTTON_ID)).click();
-            //div[text()='Test Case Steps']/following::tr//div[text()='Given']
-            //div[text()='Test Case Steps']/following::tr//div[text()='1']/following::div[text()='Given']
+    public void writeParameterValue(String label, String text) {
+        log.info("Write '{}' into '{}' input field", text, label);
+        if (text != null) {
+            $(By.xpath(String.format(TC_PARAMETER_INPUT_XPATH, label))).sendKeys(text);
         }
     }
 
-
-    //label[text()='Pre-conditions']/following-sibling::*/input[@id='0-preconditions']
-    //label[text()='Post-conditions']/following-sibling::*/input[@id='0-postconditions']
-
-    //id="gherkin-add-step-btn" - add step
-    //div[text()='Given']/following-sibling::input[@value='Given'][1]
+    public void writeGherkinSteps(String label,String inputNumber, String text ) {
+        log.info("Write '{}' into gherkin input field", text);
+        if (text != null) {
+            $(By.xpath(String.format(TC_GHERKIN_INPUT_XPATH, label, inputNumber))).sendKeys(text);
+        }
+    }
 }
+
+//label[text()='Pre-conditions']/following-sibling::*/input[@id='0-preconditions']
+//label[text()='Post-conditions']/following-sibling::*/input[@id='0-postconditions']
+
+//div[text()='Test Case Steps']/following::tr//div[text()='1']/following::input[contains(@name, 'action')]
+
+//label[text()='Parameter title']/following::input
+
+//script[@id='flashMessages']/following::div[@id='layout']//*[text()='Data is invalid.']
+//script[@id='flashMessages']/following::div[@id='layout']//*[text()='Test case was created successfully!']
+//Test case was created successfully!
