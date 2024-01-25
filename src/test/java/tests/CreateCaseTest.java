@@ -8,7 +8,7 @@ import java.io.File;
 
 public class CreateCaseTest extends BaseTest {
 
-    @Test
+    @Test(description = "Placeholder message for title field should be visible if no text input")
     public void titleFieldPlaceholderTextShouldBeVisible() {
         projectsListPage.
                 openProjectDetails("LOL");
@@ -22,42 +22,35 @@ public class CreateCaseTest extends BaseTest {
                 titleFieldPlaceholderTextShouldBeVisible();
     }
 
-    @Test
+    @Test(description = "Success message should appear after successful test creation")
     public void caseCreatedSuccessfulMessageShouldBeVisible() {
 
-        Case caseTest = Case.builder().
-                title("Modal").
+        String caseTitle = faker.funnyName().name();
+
+        Case caseCreationTestData = Case.builder().
+                title(caseTitle).
                 build();
 
-        projectsListPage.
-                openProjectDetails("LOL");
-
-        projectDetailsPage.
-                isPageOpened().
-                clickCreateCaseButton();
-
         createCasePage.
+                openPage("/case/LOL/create").
                 isPageOpened().
-                fillOutTestCaseForm(caseTest);
+                fillOutTestCaseForm(caseCreationTestData);
         createCasePage.
                 clickSaveButton();
         createCasePage.
                 waitTillSuccessfulCaseCreationMessageAppears();
     }
 
-    @Test
-    public void createTestCase() {
+    @Test(description = "Successfully created test case should be saved and appear on project details page")
+    public void testCaseShouldBeCreatedSuccessfully() {
 
-        String caseTitle = faker.funnyName().name();
-        String caseDescription = faker.lorem().paragraph(3);
-        String caseConditions = faker.lorem().paragraph(1);
+        Case caseCreationTestData = Case.builder().
 
-        Case caseTest = Case.builder().
-
-                title(caseTitle).
+                title("Diploma Test Case Title").
                 status("Draft").
-                description(caseDescription).
-                suite("Lol suite").
+                description("This is test case description test. We test large amount of sentences. " +
+                        "We are to be sure that there are no bugs in this field.").
+                suite("Diploma suite").
                 severity("Minor").
                 priority("Low").
                 type("Smoke").
@@ -68,8 +61,8 @@ public class CreateCaseTest extends BaseTest {
                 automationStatus(null).
                 isCheckBoxChecked(false).
 
-                preConditions(caseConditions).
-                postConditions(caseConditions).
+                preConditions("This is test case pre-condition test").
+                postConditions("This is test case post-condition test").
                 //"Lol tag", "Example tag"
                 // tags(new String[]{"Lol tag", "Example tag"}).
 
@@ -85,72 +78,105 @@ public class CreateCaseTest extends BaseTest {
                 gherkinStepsNumber("1").
                 gherkinStepsInput("I need to prepare some scenario to test").
 
-                gherkinStepsNumber("2").
-                gherkinStepsDropdownOption("When").
-                gherkinStepsNumber("2").
-                gherkinStepsInput("I trigger some actions").
+//                gherkinStepsNumber("2").
+//                gherkinStepsDropdownOption("When").
+//                gherkinStepsNumber("2").
+//                gherkinStepsInput("I trigger some actions").
 
-                gherkinStepsNumber("3").
-                gherkinStepsDropdownOption("Then").
-                gherkinStepsNumber("3").
-                gherkinStepsInput("I can see the expected outcome").
+//                gherkinStepsNumber("3").
+//                gherkinStepsDropdownOption("Then").
+//                gherkinStepsNumber("3").
+//                gherkinStepsInput("I can see the expected outcome").
 
         build();
 
-
-        projectsListPage.
-                openProjectDetails("LOL");
-
-        projectDetailsPage.
-                isPageOpened().
-                clickCreateCaseButton();
-
         createCasePage.
+                openPage("/case/LOL/create").
                 isPageOpened().
-                fillOutTestCaseForm(caseTest);
+                fillOutTestCaseForm(caseCreationTestData);
         createCasePage.
                 clickSaveButton();
-
-
+        createCasePage.waitTillCaseCreated("Diploma Test Case Title");
     }
 
-    @Test
-    public void emptyRequiredFieldTitleErrorMessageShouldAppear() {
+        //Этот тест падает. Возможно, тут настоящий баг
+        @Test(description = "After clicking 'Save and create another' button -" +
+                " one more test case should be created")
+        public void clickSaveAndCreateAnotherOneMoreTestCaseShouldBeCreated() {
+
+            Case firstCreatedTestData = Case.builder().
+                    title("First Test Case Created").
+                    build();
+
+            Case secondCreatedTestData = Case.builder().
+                    title("Second Test Case Created").
+                    build();
+
+            createCasePage.
+                    openPage("/case/LOL/create").
+                    isPageOpened().
+                    fillOutTestCaseForm(firstCreatedTestData);
+            createCasePage.
+                    clickSaveAndCreateAnotherButton().
+                    isPageOpened().
+                    fillOutTestCaseForm(secondCreatedTestData);
+            createCasePage.
+                    clickSaveButton();
+            projectDetailsPage.
+                    isPageOpened();
+            createCasePage.waitTillCaseCreated("First Test Case Created");
+            createCasePage. waitTillCaseCreated("Second Test Case Created");
+        }
+
+
+    @Test(description = "Required field 'Title' not filled out - " +
+            "error message should appear after clicking 'Save' button")
+    public void emptyTitleClickSaveErrorMessageShouldAppear() {
 
         String caseDescription = faker.lorem().paragraph(3);
 
-        Case caseTest = Case.builder().
+        Case caseCreationTestData = Case.builder().
                 title(null).
                 description(caseDescription).
                 build();
 
-        projectsListPage.
-                openProjectDetails("LOL");
-
-        projectDetailsPage.
-                isPageOpened().
-                clickCreateCaseButton();
-
         createCasePage.
+                openPage("/case/LOL/create").
                 isPageOpened().
-                fillOutTestCaseForm(caseTest);
+                fillOutTestCaseForm(caseCreationTestData);
         createCasePage.
                 clickSaveButton();
         createCasePage.
-                fieldValidationMessageShouldBeVisible();
+                requiredFieldValidationMessageShouldBeVisible();
     }
 
-    @Test
-    public void nothingIsFilledOutClickCancelProjectDetailsPageShouldAppear() {
+    @Test(description = "Required field 'Title' not filled out - " +
+            "error message should appear after clicking 'Save and create another' button")
+    public void emptyTitleClickSaveAndCreateAnotherErrorMessageShouldAppear() {
 
-        projectsListPage.
-                openProjectDetails("LOL");
+        String caseDescription = faker.lorem().paragraph(3);
 
-        projectDetailsPage.
-                isPageOpened().
-                clickCreateCaseButton();
+        Case caseCreationTestData = Case.builder().
+                title(null).
+                description(caseDescription).
+                build();
 
         createCasePage.
+                openPage("/case/LOL/create").
+                isPageOpened().
+                fillOutTestCaseForm(caseCreationTestData);
+        createCasePage.
+                clickSaveAndCreateAnotherButton();
+        createCasePage.
+                requiredFieldValidationMessageShouldBeVisible();
+    }
+
+    @Test(description = "Fields not filled out - " +
+            "project details page should appear w/o test case after clicking 'Cancel' button")
+    public void nothingIsFilledOutClickCancelProjectDetailsPageShouldAppear() {
+
+        createCasePage.
+                openPage("/case/LOL/create").
                 isPageOpened().
                 clickCancelButton();
         projectDetailsPage.
@@ -158,97 +184,74 @@ public class CreateCaseTest extends BaseTest {
 
     }
 
-    @Test
+    @Test(description = "Only 'Title' field is filled out - " +
+            "'Close Form' modal window should appear after clicking 'Cancel' button")
     public void titleIsFilledOutClickCancelModalWindowShouldAppear() {
 
-        Case caseTest = Case.builder().
-                title("Modal").
+        Case caseCreationTestData = Case.builder().
+                title("Modal Window Test").
                 build();
 
-        projectsListPage.
-                openProjectDetails("LOL");
-
-        projectDetailsPage.
-                isPageOpened().
-                clickCreateCaseButton();
-
         createCasePage.
+                openPage("/case/LOL/create").
                 isPageOpened().
-                fillOutTestCaseForm(caseTest);
+                fillOutTestCaseForm(caseCreationTestData);
         createCasePage.
                 clickCancelButton().
-                waitTillModalCloseFormWindowAppears();
+                waitTillCloseFormModalWindowAppears();
     }
 
-    @Test
-    public void clickCloseFormCancelButtonCasePageShouldAppear() {
+    @Test(description = "'Create test case' page should appear after clicking modal window 'Cancel' button")
+    public void clickCancelModalWindowButtonCasePageShouldAppear() {
 
-        Case caseTest = Case.builder().
-                title("Modal").
+        Case caseCreationTestData = Case.builder().
+                title("Modal Window Test").
                 build();
 
-        projectsListPage.
-                openProjectDetails("LOL");
-
-        projectDetailsPage.
-                isPageOpened().
-                clickCreateCaseButton();
-
         createCasePage.
+                openPage("/case/LOL/create").
                 isPageOpened().
-                fillOutTestCaseForm(caseTest);
+                fillOutTestCaseForm(caseCreationTestData);
         createCasePage.
                 clickCancelButton().
-                waitTillModalCloseFormWindowAppears().
-                clickCloseFormCancelButton().
+                waitTillCloseFormModalWindowAppears().
+                clickCancelModalWindowButton().
                 isPageOpened();
     }
 
-    @Test
-    public void clickCloseFormCrossCancelButtonCasePageShouldAppear() {
+    @Test(description = "'Create test case' page should appear after clicking modal window 'Cross' button")
+    public void clickCrossModalWindowButtonCasePageShouldAppear() {
 
-        Case caseTest = Case.builder().
-                title("Modal").
+        Case caseCreationTestData = Case.builder().
+                title("Modal Window Test").
                 build();
 
-        projectsListPage.
-                openProjectDetails("LOL");
-
-        projectDetailsPage.
-                isPageOpened().
-                clickCreateCaseButton();
-
         createCasePage.
+                openPage("/case/LOL/create").
                 isPageOpened().
-                fillOutTestCaseForm(caseTest);
+                fillOutTestCaseForm(caseCreationTestData);
         createCasePage.
                 clickCancelButton().
-                waitTillModalCloseFormWindowAppears().
-                clickCloseFormCrossCancelButton().
+                waitTillCloseFormModalWindowAppears().
+                clickCrossModalWindowButton().
                 isPageOpened();
     }
 
-    @Test
-    public void clickCloseFormButtonProjectDetailsPageShouldAppear() {
+    @Test(description = "'Project details' page should appear after clicking modal window 'Close form' button")
+    public void clickCloseFormModalWindowButtonProjectDetailsPageShouldAppear() {
 
-        Case caseTest = Case.builder().
-                title("Modal").
+        Case caseCreationTestData = Case.builder().
+                title("Modal Window Test").
                 build();
 
-        projectsListPage.
-                openProjectDetails("LOL");
-
-        projectDetailsPage.
-                isPageOpened().
-                clickCreateCaseButton();
-
         createCasePage.
+                openPage("/case/LOL/create").
                 isPageOpened().
-                fillOutTestCaseForm(caseTest);
+                fillOutTestCaseForm(caseCreationTestData);
         createCasePage.
                 clickCancelButton().
-                waitTillModalCloseFormWindowAppears().
-                clickCloseFormButton();
+                waitTillCloseFormModalWindowAppears().
+                clickCloseFormModalWindowButton();
         projectDetailsPage.
                 isPageOpened();
     }

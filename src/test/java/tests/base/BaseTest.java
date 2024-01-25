@@ -42,6 +42,7 @@ package tests.base;
 
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
+import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -56,6 +57,7 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
+@Log4j2
 public class BaseTest {
 
     protected static String USERNAME;
@@ -68,6 +70,8 @@ public class BaseTest {
 
     @BeforeMethod
     public void setup() {
+        log.info("Open chrome browser");
+
         Configuration.browser = "chrome";
         Configuration.headless = false;
         Configuration.timeout = 10000;
@@ -90,18 +94,20 @@ public class BaseTest {
         PASSWORD = System.getProperty("password", PropertyReader.getProperty("qase.password"));
         System.out.println(PASSWORD);
 
-            loginPage.
-                    openPage().
-                    isPageOpened().
-                    fillOutLoginForm(USERNAME, PASSWORD).
-                    clickSubmitButton();
+        log.info("Login w/ correct credentials");
+        loginPage.
+                openPage("/login").
+                isPageOpened().
+                fillOutLoginForm(USERNAME, PASSWORD).
+                clickSignInButton();
 
-            projectsListPage.
-                    isPageOpened();
+        projectsListPage.
+                isPageOpened();
     }
 
     @AfterMethod(alwaysRun = true)
     public void close() {
+        log.info("Close browser");
         closeWebDriver();
     }
 }

@@ -61,13 +61,4 @@ public class Input {
     }
 }
 
-//label[text()='Pre-conditions']/following-sibling::*/input[@id='0-preconditions']
-//label[text()='Post-conditions']/following-sibling::*/input[@id='0-postconditions']
-
-//div[text()='Test Case Steps']/following::tr//div[text()='1']/following::input[contains(@name, 'action')]
-
-//label[text()='Parameter title']/following::input
-
 //script[@id='flashMessages']/following::div[@id='layout']//*[text()='Data is invalid.']
-//script[@id='flashMessages']/following::div[@id='layout']//*[text()='Test case was created successfully!']
-//Test case was created successfully!

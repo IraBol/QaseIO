@@ -12,24 +12,23 @@ import static com.codeborne.selenide.Selenide.open;
 public class ProjectsListPage extends BasePage {
 
     private static final String CREATE_NEW_PROJECT_BUTTON_ID = "createButton";
-
     private static final String PROJECT_NAME_XPATH = "//a[text()='%s']";
     private static final String PROJECT_DETAILS_PAGE_HEADER = "//h1[text()=' repository']";
 
 
     @Override
     @Step("Open projects list page")
-    public ProjectsListPage openPage() {
+    public ProjectsListPage openPage(String path) {
         log.info("Open projects list page");
-        open(BASE_URL + "/projects");
+        open(String.format(BASE_URL + "%s", path));
         waitForPageLoaded();
         return this;
     }
 
     @Override
-    @Step("Verify if projects list page opened")
+    @Step("Verify if projects list page is opened")
     public ProjectsListPage isPageOpened() {
-        log.info("Verify if projects list page opened");
+        log.info("Verify if projects list page is opened");
         try {
             $(By.id(CREATE_NEW_PROJECT_BUTTON_ID)).shouldBe(Condition.visible);
         } catch (Exception e) {

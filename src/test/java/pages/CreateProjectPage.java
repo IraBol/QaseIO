@@ -19,13 +19,16 @@ public class CreateProjectPage extends BasePage{
 
     private static final String CREATE_PROJECT_BUTTON_CSS = "[type=submit]";
 
-    public CreateProjectPage openPage() {
-        open(BASE_URL + "/projects/");
+    public CreateProjectPage openPage(String path) {
+        log.info("Open create project page");
+        open(String.format(BASE_URL + "%s", path));
+        waitForPageLoaded();
         return this;
     }
 
     @Override
     public CreateProjectPage isPageOpened() {
+        log.info("Verify whether create project page is opened");
         try {
             $(By.cssSelector(CREATE_PROJECT_BUTTON_CSS)).shouldBe(Condition.visible);
         } catch (Exception e) {

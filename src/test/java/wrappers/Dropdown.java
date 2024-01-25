@@ -6,8 +6,11 @@ private static final String TYPE_OPTION_XPATH = "(//*[@id='modals']/*)[last()]//
  */
 package wrappers;
 
+import com.codeborne.selenide.Condition;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.actions;
@@ -76,7 +79,7 @@ public class Dropdown {
         if (option != null) {
             $(By.id(TC_GHERKIN_ADD_STEP_BUTTON_ID)).click();
             $(By.xpath(String.format(TC_GHERKIN_STEPS_DROPDOWN_XPATH, label, inputNumber))).click();
-            $(By.xpath(String.format(TC_GHERKIN_STEPS_DROPDOWN_OPTION_XPATH, label, inputNumber, option))).click();
+            $(By.xpath(String.format(TC_GHERKIN_STEPS_DROPDOWN_OPTION_XPATH, label, inputNumber, option))).shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
         }
     }
 }

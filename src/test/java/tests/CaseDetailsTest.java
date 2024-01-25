@@ -1,16 +1,7 @@
 package tests;
 
-public class CaseDetailsTest {
+import tests.base.BaseTest;
 
-    public void openPage() {
+public class CaseDetailsTest extends BaseTest {
 
-    }
-
-    public void isPageOpened() {
-
-    }
-
-    public void editTestCaseDetails() {
-
-    }
 }

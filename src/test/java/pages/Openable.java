@@ -2,7 +2,7 @@ package pages;
 
 public interface Openable {
 
-    public BasePage openPage();
+    public BasePage openPage(String path);
 
     //    public default boolean isPageOpened() {
 //        return false;
