@@ -80,4 +80,11 @@ public class Input {
             $(By.xpath(String.format(TC_DETAILS_GENERAL_XPATH, tag, value, text))).shouldBe(Condition.visible);
         }
     }
+
+    public void validatePropertiesTabFields(String tag, String value, String text) {
+        log.info("'{}' field contains '{}' text", value, text);
+        if (text != null) {
+            $(By.xpath(String.format(TC_DETAILS_GENERAL_XPATH, tag, value, text))).shouldBe(Condition.visible);
+        }
+    }
 }

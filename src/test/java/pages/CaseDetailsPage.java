@@ -63,18 +63,29 @@ public class CaseDetailsPage extends BasePage {
     public CaseDetailsPage validateGeneralTabInfo(Case testCase) {
 
         new Input().validateTestCaseDetailsTitle(testCase.getTitle());
-        new Input().validateGeneralTabFields("", "", testCase.getDescription());
-        new Input().validateGeneralTabFields("", "", testCase.getPreConditions());
-        new Input().validateGeneralTabFields("", "", testCase.getPostConditions());
-        new Input().validateGeneralTabFields("", "", testCase.getAttachmentTitle());
-        new Input().validateGeneralTabFields("", "", testCase.getParameterTitle());
-        new Input().validateGeneralTabFields("", "", testCase.getParameterValue());
-        new Input().validateGeneralTabFields("", "", testCase.getGherkinStepsInput());
+        new Input().validateGeneralTabFields("label", "Description", testCase.getDescription());
+        new Input().validateGeneralTabFields("label", "Pre-conditions", testCase.getPreConditions());
+        new Input().validateGeneralTabFields("label", "Post-conditions", testCase.getPostConditions());
+        new Input().validateGeneralTabFields("h3", "Attachments", testCase.getAttachmentTitle());
+        new Input().validateGeneralTabFields("h3", "Parameters", testCase.getParameterTitle());
+        new Input().validateGeneralTabFields("h3", "Parameters", testCase.getParameterValue());
+        new Input().validateGeneralTabFields("h3", "Steps", testCase.getGherkinStepsInput());
         return this;
     }
 
-    public CaseDetailsPage validatePropertiesTabInfo() {
+    public CaseDetailsPage validatePropertiesTabInfo(Case testCase) {
 
+        new Input().validateGeneralTabFields("label", "Severity", testCase.getSeverity());
+        new Input().validateGeneralTabFields("label", "Status", testCase.getStatus());
+        new Input().validateGeneralTabFields("label", "Priority", testCase.getPriority());
+        new Input().validateGeneralTabFields("label", "Behavior", testCase.getBehavior());
+        new Input().validateGeneralTabFields("label", "Type", testCase.getType());
+        new Input().validateGeneralTabFields("label", "Is flaky", testCase.getIsFlaky());
+        new Input().validateGeneralTabFields("span", "Milestone", testCase.getMilestone());
+        //tags - will be later
+        new Input().validateGeneralTabFields("label", "Layer", testCase.getLayer());
+        new Input().validateGeneralTabFields("label", "Automation status", testCase.getAutomationStatus());
+        //checkbox - will be later
         return this;
     }
 
