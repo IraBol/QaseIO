@@ -1,9 +1,11 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import dto.Case;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import wrappers.Input;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -23,6 +25,8 @@ public class CaseDetailsPage extends BasePage {
     private static final String PARAMETERS_VALUE_XPATH = "//h3[text()='Parameters']/..//following::li";
     private static final String STEPS_XPATH = "//h3[text()='Steps']/..//following::td/span";
 //h3[text()='Steps']/..//following::td/
+
+    //h3[text()='Attachments']/..//*[text()='Screenshot225626.jpg']
 
     @Override
     @Step("Open test case details page")
@@ -56,8 +60,16 @@ public class CaseDetailsPage extends BasePage {
         return this;
     }
 
-    public CaseDetailsPage validateGeneralTabInfo() {
+    public CaseDetailsPage validateGeneralTabInfo(Case testCase) {
 
+        new Input().validateTestCaseDetailsTitle(testCase.getTitle());
+        new Input().validateGeneralTabFields("", "", testCase.getDescription());
+        new Input().validateGeneralTabFields("", "", testCase.getPreConditions());
+        new Input().validateGeneralTabFields("", "", testCase.getPostConditions());
+        new Input().validateGeneralTabFields("", "", testCase.getAttachmentTitle());
+        new Input().validateGeneralTabFields("", "", testCase.getParameterTitle());
+        new Input().validateGeneralTabFields("", "", testCase.getParameterValue());
+        new Input().validateGeneralTabFields("", "", testCase.getGherkinStepsInput());
         return this;
     }
 

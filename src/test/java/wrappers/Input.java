@@ -5,6 +5,7 @@ Upload file
  */
 package wrappers;
 
+import com.codeborne.selenide.Condition;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 
@@ -15,6 +16,7 @@ import static com.codeborne.selenide.Selenide.$;
 @Log4j2
 public class Input {
 
+    //_________________________________________CREATE TEST CASE PAGE__________________________________________________\\
     private static final String TC_INPUT_XPATH = "//label[text()='%s']/following-sibling::*/input[@id='%s']";
     private static final String TC_ADD_ATTACHMENT_BUTTON_XPATH = "//button[text()='Add attachment']";
     private static final String TC_INPUT_FILE_XPATH = "//div[@data-react-modal-body-trap][2]/following-sibling::input[@type='file']";
@@ -53,12 +55,29 @@ public class Input {
         }
     }
 
-    public void writeGherkinSteps(String label,String inputNumber, String text ) {
+    public void writeGherkinSteps(String label, String inputNumber, String text) {
         log.info("Write '{}' into gherkin input field", text);
         if (text != null) {
             $(By.xpath(String.format(TC_GHERKIN_INPUT_XPATH, label, inputNumber))).sendKeys(text);
         }
     }
-}
 
-//script[@id='flashMessages']/following::div[@id='layout']//*[text()='Data is invalid.']
+    //_________________________________________TEST CASE DETAILS PAGE__________________________________________________\\
+
+    private static final String TC_DETAILS_TITLE_XPATH = "//div[text()='%s']";
+    private static final String TC_DETAILS_GENERAL_XPATH = "//%s[text()='%s']/..//*[text()='%s']]";
+
+    public void validateTestCaseDetailsTitle(String text) {
+        log.info("Test case title is'{}'", text);
+        if (text != null) {
+            $(By.xpath(String.format(TC_DETAILS_TITLE_XPATH, text))).shouldBe(Condition.visible);
+        }
+    }
+
+    public void validateGeneralTabFields(String tag, String value, String text) {
+        log.info("'{}' field contains '{}' text", value, text);
+        if (text != null) {
+            $(By.xpath(String.format(TC_DETAILS_GENERAL_XPATH, tag, value, text))).shouldBe(Condition.visible);
+        }
+    }
+}

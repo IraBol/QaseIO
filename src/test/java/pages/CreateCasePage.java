@@ -20,10 +20,12 @@ public class CreateCasePage extends BasePage {
     private static final String TC_CANCEL_BUTTON_XPATH = "//button/span[text()='Cancel']";
     private static final String MODAL_WINDOW_CLOSE_FORM_HEADER = "//h3[text()='Close form?']";
     private static final String MODAL_WINDOW_CLOSE_FORM_BUTTON_XPATH = "//button/span[text()='Close form']";
-    private static final String MODAL_WINDOW_CROSS_CLOSE_BUTTON_XPATH = "//h3[text()='Close form?']/../preceding-sibling::button";
-    private static final String MODAL_WINDOW_CLOSE_FORM_CANCEL_BUTTON_XPATH = "//*[text()='Close form?']/following::span[text()='Cancel']";
+    private static final String MODAL_WINDOW_CROSS_BUTTON_XPATH = "//h3[text()='Close form?']/../preceding-sibling::button";
+    private static final String MODAL_WINDOW_CANCEL_BUTTON_XPATH = "//*[text()='Close form?']/following::span[text()='Cancel']";
     private static final String TC_TITLE_FIELD_ID = "title";
-    private static final String TC_SUCCESSFUL_CREATION_FLASH_MESSAGE_XPATH = "//script[@id='flashMessages']/following::div[@id='layout']//*[text()='Test case was created successfully!']";
+    private static final String TC_SUCCESSFUL_CREATION_FLASH_MESSAGE_XPATH = "//script[@id='flashMessages']/following::" +
+            "div[@id='layout']//*[text()='Test case was created successfully!']";
+    //script[@id='flashMessages']/following::div[@id='layout']//*[text()='Data is invalid.']
     private static final String TC_TITLE_ON_PROJECT_DETAILS_PAGE_XPATH = "//div[text()='%s']";
 
     @Override
@@ -157,16 +159,14 @@ public class CreateCasePage extends BasePage {
     @Step("Click 'Cancel' modal window button")
     public CreateCasePage clickCancelModalWindowButton() {
         log.info("Click 'Cancel' modal window button");
-        $(By.xpath(MODAL_WINDOW_CLOSE_FORM_CANCEL_BUTTON_XPATH)).click();
+        $(By.xpath(MODAL_WINDOW_CANCEL_BUTTON_XPATH)).click();
         return this;
     }
 
     @Step("Click 'Cross' modal window button")
     public CreateCasePage clickCrossModalWindowButton() {
         log.info("Click 'Cross' modal window button");
-        $(By.xpath(MODAL_WINDOW_CROSS_CLOSE_BUTTON_XPATH)).click();
+        $(By.xpath(MODAL_WINDOW_CROSS_BUTTON_XPATH)).click();
         return this;
     }
-
-
 }

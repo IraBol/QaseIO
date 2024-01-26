@@ -29,6 +29,7 @@ public class Case {
     String[] tags;
     //Attachments
     File addAttachment;
+    String attachmentTitle;
     //Parameters
     String parameterTitle;
     String parameterValue;
