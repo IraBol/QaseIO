@@ -84,18 +84,3 @@ public class Dropdown {
     }
 }
 
-//div[@id='milestoneGroup']//following::div[text()='Not set'] - milestone DD
-//div[@id='modals']/following-sibling::div//*[text()='%s'] - milestone DD option
-
-//label[text()='Suite']/following-sibling::div//*[text()='Test cases without suite'] - suite DD
-//label[text()='Suite']/following-sibling::div//*[text()='%s'] - suite DD option
-
-//div[text()='Tags']/following-sibling::div[@class='row']//div[contains(@class,'multiValue')] Tags DD
-//div[text()='Tags']/following-sibling::div[@class='row']//*[text()='Example tag'] Tags DD option
-
-//div[text()='Test Case Steps']/div//*[text()='Classic'] - TC steps DD
-//div[text()='Test Case Steps']/div//*[text()='%s'] - TC steps DD option
-
-//id="gherkin-add-step-btn" - add step
-//div[text()='Test Case Steps']/following::tr//div[text()='1']/following::div[text()='Given']
-

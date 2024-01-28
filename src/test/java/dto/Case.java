@@ -8,6 +8,7 @@ import java.io.File;
 @Data
 @Builder
 public class Case {
+
     //Basic
     String title;
     String status;

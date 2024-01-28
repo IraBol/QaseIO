@@ -4,8 +4,6 @@ import dto.Case;
 import org.testng.annotations.Test;
 import tests.base.BaseTest;
 
-import java.io.File;
-
 public class CaseDetailsTest extends BaseTest {
 
     Case caseCreationTestData = Case.builder().
@@ -31,7 +29,7 @@ public class CaseDetailsTest extends BaseTest {
             //"Lol tag", "Example tag"
             // tags(new String[]{"Lol tag", "Example tag"}).
 
-            attachmentTitle("Screenshot225626.jpg").
+                    attachmentTitle("Screenshot225626.jpg").
 
             parameterTitle("test parameter").
             parameterValue("test value").
@@ -70,6 +68,4 @@ public class CaseDetailsTest extends BaseTest {
                 clickPropertiesButton().
                 validatePropertiesTabInfo(caseCreationTestData);
     }
-
-
 }

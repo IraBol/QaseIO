@@ -19,18 +19,6 @@ public class CaseDetailsPage extends BasePage {
     private static final String GENERAL_BUTTON_XPATH = "//button[text()='General']";
     private static final String PROPERTIES_BUTTON_XPATH = "//button[text()='Properties']";
     private static final String TC_TITLE_ON_PROJECT_DETAILS_PAGE_XPATH = "//div[text()='%s']";
-    //переделать через DTO!!!
-    private static final String TITLE_FIELD_XPATH = "//div[text()='Diploma Test Case Title']";
-    private static final String DESCRIPTION_XPATH = "//label[text()='Description']";
-    private static final String PRE_CONDITIONS_XPATH = "//label[text()='Pre-conditions']";
-    private static final String POST_CONDITIONS_XPATH = "//label[text()='Post-conditions']";
-    private static final String ATTACHMENTS_XPATH = "//h3[text()='Attachments']/..//span";
-    private static final String PARAMETERS_TITLE_XPATH = "//h3[text()='Parameters']/../div/div/div";
-    private static final String PARAMETERS_VALUE_XPATH = "//h3[text()='Parameters']/..//following::li";
-    private static final String STEPS_XPATH = "//h3[text()='Steps']/..//following::td/span";
-//h3[text()='Steps']/..//following::td/
-
-    //h3[text()='Attachments']/..//*[text()='Screenshot225626.jpg']
 
     @Override
     @Step("Open test case details page")
@@ -100,9 +88,5 @@ public class CaseDetailsPage extends BasePage {
         new Input().validateGeneralTabFields("label", "Automation status", testCase.getAutomationStatus());
         new CheckBox().validateCheckBoxStatus("To be automated", testCase.isCheckBoxChecked());
         return this;
-    }
-
-    public void editSomeFieldsFromTestCaseForm() {
-
     }
 }

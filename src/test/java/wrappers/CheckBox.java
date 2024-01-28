@@ -30,18 +30,3 @@ public class CheckBox {
         }
     }
 }
-//label[text()='To be automated']/following-sibling::*//input[contains(@id,'ToBeAutomated')]
-
-/*
-private string isChecked;
-private webElement e;
-isChecked =e.findElement(By.tagName("input")).getAttribute("checked");
-if(isChecked=="true")
-{
-
-}
-else
-{
-
-}
- */

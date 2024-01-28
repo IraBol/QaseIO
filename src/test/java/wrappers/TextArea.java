@@ -17,5 +17,3 @@ public class TextArea {
         }
     }
 }
-//label[text()='Description']/following-sibling::div//div[@class='toastui-editor-ww-container']//p[contains(@data-placeholder,'For example' )]
-//label[text()='Description']/following-sibling::div//div[@class='toastui-editor-ww-container']
