@@ -6,40 +6,44 @@ import tests.base.BaseTest;
 
 public class CaseDetailsTest extends BaseTest {
 
-    Case caseCreationTestData = Case.builder().
+    @Test(description = "Validate created test case details")
+    public void validateCreatedTestCaseDetails() {
 
-            title("Diploma Test Case Title").
-            status("Draft").
-            description("This is test case description test. We test large amount of sentences. " +
-                    "We are to be sure that there are no bugs in this field.").
-            suite("Diploma suite").
-            severity("Minor").
-            priority("Low").
-            type("Smoke").
-            layer("E2E").
-            isFlaky("Yes").
-            milestone("Release 1.0").
-            behavior("Positive").
-            automationStatus(null).
-            isCheckBoxChecked(true).
+        //Данные можно на весь класс использовать, а можно на конкретный метод
+        Case caseCreationTestData = Case.builder().
 
-            preConditions("This is test case pre-condition test").
-            postConditions("This is test case post-condition test").
+                title("Diploma Test Case Title").
+                status("Draft").
+                description("This is test case description test. We test large amount of sentences. " +
+                        "We are to be sure that there are no bugs in this field.").
+                suite("Diploma suite").
+                severity("Minor").
+                priority("Low").
+                type("Smoke").
+                layer("E2E").
+                isFlaky("Yes").
+                milestone("Release 1.0").
+                behavior("Positive").
+                automationStatus(null).
+                isCheckBoxChecked(true).
 
-            //"Lol tag", "Example tag"
-            // tags(new String[]{"Lol tag", "Example tag"}).
+                preConditions("This is test case pre-condition test").
+                postConditions("This is test case post-condition test").
 
-                    attachmentTitle("Screenshot225626.jpg").
+                //"Lol tag", "Example tag"
+                // tags(new String[]{"Lol tag", "Example tag"}).
 
-            parameterTitle("test parameter").
-            parameterValue("test value").
+                        attachmentTitle("Screenshot225626.jpg").
 
-            testCaseStepsDropdownOption("Gherkin").
+                parameterTitle("test parameter").
+                parameterValue("test value").
 
-            gherkinStepsNumber("1").
-            gherkinStepsDropdownOption("Given").
-            gherkinStepsNumber("1").
-            gherkinStepsInput("I need to prepare some scenario to test").
+                testCaseStepsDropdownOption("Gherkin").
+
+                gherkinStepsNumber("1").
+                gherkinStepsDropdownOption("Given").
+                gherkinStepsNumber("1").
+                gherkinStepsInput("I need to prepare some scenario to test").
 
 //                gherkinStepsNumber("2").
 //                gherkinStepsDropdownOption("When").
@@ -53,8 +57,6 @@ public class CaseDetailsTest extends BaseTest {
 
         build();
 
-    @Test
-    public void validateCreatedTestCaseDetails() {
         projectsListPage.
                 openProjectDetails("LOL");
 
@@ -63,9 +65,8 @@ public class CaseDetailsTest extends BaseTest {
 
         caseDetailsPage.
                 openTestCase("Diploma Test Case Title").
-                clickGeneralButton().
                 validateGeneralTabInfo(caseCreationTestData).
-                clickPropertiesButton().
+                openPropertiesTab().
                 validatePropertiesTabInfo(caseCreationTestData);
     }
 }

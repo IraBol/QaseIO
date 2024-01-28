@@ -51,17 +51,16 @@ public class CaseDetailsPage extends BasePage {
         return this;
     }
 
-    public CaseDetailsPage clickGeneralButton() {
-        $(By.xpath(GENERAL_BUTTON_XPATH)).click();
-        return this;
-    }
-
-    public CaseDetailsPage clickPropertiesButton() {
+    @Step("Open properties tab")
+    public CaseDetailsPage openPropertiesTab() {
+        log.info("Open properties tab");
         $(By.xpath(PROPERTIES_BUTTON_XPATH)).click();
         return this;
     }
 
+    @Step("Validate general tab info")
     public CaseDetailsPage validateGeneralTabInfo(Case testCase) {
+        log.info("Validate general tab info");
 
         new Input().validateTestCaseDetailsTitle(testCase.getTitle());
         new Input().validateGeneralTabFields("label", "Description", testCase.getDescription());
@@ -73,8 +72,9 @@ public class CaseDetailsPage extends BasePage {
         new Input().validateGeneralTabFields("h3", "Steps", testCase.getGherkinStepsInput());
         return this;
     }
-
+    @Step("Validate properties tab info")
     public CaseDetailsPage validatePropertiesTabInfo(Case testCase) {
+        log.info("Validate properties tab info");
 
         new Input().validateGeneralTabFields("label", "Severity", testCase.getSeverity());
         new Input().validateGeneralTabFields("label", "Status", testCase.getStatus());
