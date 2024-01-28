@@ -5,7 +5,10 @@ import dto.Case;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import wrappers.CheckBox;
 import wrappers.Input;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -15,6 +18,7 @@ public class CaseDetailsPage extends BasePage {
 
     private static final String GENERAL_BUTTON_XPATH = "//button[text()='General']";
     private static final String PROPERTIES_BUTTON_XPATH = "//button[text()='Properties']";
+    private static final String TC_TITLE_ON_PROJECT_DETAILS_PAGE_XPATH = "//div[text()='%s']";
     //переделать через DTO!!!
     private static final String TITLE_FIELD_XPATH = "//div[text()='Diploma Test Case Title']";
     private static final String DESCRIPTION_XPATH = "//label[text()='Description']";
@@ -50,6 +54,15 @@ public class CaseDetailsPage extends BasePage {
         return this;
     }
 
+    @Step("Open relevant test case")
+    public CaseDetailsPage openTestCase(String testCaseTitle) {
+        log.info("Open relevant test case");
+        $(By.xpath(String.format(TC_TITLE_ON_PROJECT_DETAILS_PAGE_XPATH, testCaseTitle))).shouldBe(Condition.visible, Duration.ofSeconds(10)).
+                click();
+        waitForPageLoaded();
+        return this;
+    }
+
     public CaseDetailsPage clickGeneralButton() {
         $(By.xpath(GENERAL_BUTTON_XPATH)).click();
         return this;
@@ -66,7 +79,7 @@ public class CaseDetailsPage extends BasePage {
         new Input().validateGeneralTabFields("label", "Description", testCase.getDescription());
         new Input().validateGeneralTabFields("label", "Pre-conditions", testCase.getPreConditions());
         new Input().validateGeneralTabFields("label", "Post-conditions", testCase.getPostConditions());
-        new Input().validateGeneralTabFields("h3", "Attachments", testCase.getAttachmentTitle());
+        new Input().validateUploadedAttachment("Attachments", testCase.getAttachmentTitle());
         new Input().validateGeneralTabFields("h3", "Parameters", testCase.getParameterTitle());
         new Input().validateGeneralTabFields("h3", "Parameters", testCase.getParameterValue());
         new Input().validateGeneralTabFields("h3", "Steps", testCase.getGherkinStepsInput());
@@ -85,7 +98,7 @@ public class CaseDetailsPage extends BasePage {
         //tags - will be later
         new Input().validateGeneralTabFields("label", "Layer", testCase.getLayer());
         new Input().validateGeneralTabFields("label", "Automation status", testCase.getAutomationStatus());
-        //checkbox - will be later
+        new CheckBox().validateCheckBoxStatus("To be automated", testCase.isCheckBoxChecked());
         return this;
     }
 

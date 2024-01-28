@@ -81,7 +81,7 @@ public class CreateCasePage extends BasePage {
         new Dropdown().setMilestoneDropdownValue(testCase.getMilestone());
         new Dropdown().setDropdownValue("Behavior", testCase.getBehavior());
         new Dropdown().setDropdownValue("Automation status", testCase.getAutomationStatus());
-        new CheckBox().selectCheckBoxOption("To be automated", "ToBeAutomated", testCase.isCheckBoxChecked());
+        new CheckBox().selectCheckBoxOption("To be automated", testCase.isCheckBoxChecked());
         //Conditions
         new Input().write("Pre-conditions", "0-preconditions", testCase.getPreConditions());
         new Input().write("Post-conditions", "0-postconditions", testCase.getPostConditions());

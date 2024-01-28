@@ -2,12 +2,52 @@
 Upload file
 Работает с элементами типа input. Искать в дереве DOM нужно что-то типа <input type='file'...>
 Может быть даже в конце html файла. Нужно искать по всему доку/дому
+
+Verify uploaded file(preferably images)
+Проверять загруженный файл, в частности картинку, можно через API/UI. Если проверяем через UI, то варианты:
+
+1) проверка через JS executor (нюанс - нужно знать js, что правильно писать скрипт). Варианты:
+Boolean isImageLoaded = (Boolean) ((JavascriptExecutor)driver).
+            executeScript("return arguments[0].complete && typeof arguments[0].
+            naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", imageWebElement);
+Это нужно добавить в метод и сравнивать через if возвращаемое значение с true/false - в зависимости от результата сравнения
+           возвращать true/false вместо sout. (нюанс - нужен driver, а в selenide не объявляется driver)
+
+или
+
+Object result = ((JavascriptExecutor) driver).executeScript(
+   "return arguments[0].complete && "+
+   "typeof arguments[0].naturalWidth != \"undefined\" && "+
+   "arguments[0].naturalWidth > 0", image);
+
+    boolean loaded = false;
+    if (result instanceof Boolean) {
+      loaded = (Boolean) result;
+      System.out.println(loaded);
+    }
+
+Вариант похож на тот, что выше, более докрученный и его тоже нужно в метод добавить. Смысл такой же.
+
+2) Selenium getSize() method
+Можно найти элемент(image) и взять его высоту/ширину(.getSize().height & .getSize.heightWidth) - если они
+подходят по заданным параметрам, то картинка есть, если размер отличается (больше/меньше), то false.
+
+Например:
+
+WebElement searchBox = driver.findElement(By.name("q"));
+        Dimension dim = searchBox.getSize();
+
+        System.out.println("Width : " + dim.width);
+        System.out.println("Height : " + dim.height);
+
+Только нужно добавить это в boolean метод и через if сравнивать значения с ожидаемыми и уже возвращать в результате true/false
  */
 package wrappers;
 
 import com.codeborne.selenide.Condition;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 
 import java.io.File;
 
@@ -65,7 +105,8 @@ public class Input {
     //_________________________________________TEST CASE DETAILS PAGE__________________________________________________\\
 
     private static final String TC_DETAILS_TITLE_XPATH = "//div[text()='%s']";
-    private static final String TC_DETAILS_GENERAL_XPATH = "//%s[text()='%s']/..//*[text()='%s']]";
+    private static final String TC_DETAILS_LOADED_ATTACHMENT_XPATH = "//h3[text()='%s']/..//*[text()='%s']/ancestor::a";
+    private static final String TC_DETAILS_GENERAL_XPATH = "//%s[text()='%s']/..//*[text()='%s']";
 
     public void validateTestCaseDetailsTitle(String text) {
         log.info("Test case title is'{}'", text);
@@ -80,6 +121,14 @@ public class Input {
             $(By.xpath(String.format(TC_DETAILS_GENERAL_XPATH, tag, value, text))).shouldBe(Condition.visible);
         }
     }
+
+    public void validateUploadedAttachment(String value, String attachmentTitle) {
+        log.info("'{}' field contains '{}' title", value, attachmentTitle);
+        if (attachmentTitle != null) {
+            $(By.xpath(String.format(TC_DETAILS_LOADED_ATTACHMENT_XPATH, value, attachmentTitle))).shouldBe(Condition.visible);
+        }
+    }
+
 
     public void validatePropertiesTabFields(String tag, String value, String text) {
         log.info("'{}' field contains '{}' text", value, text);

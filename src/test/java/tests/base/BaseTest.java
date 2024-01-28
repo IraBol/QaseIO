@@ -46,10 +46,7 @@ import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.CreateCasePage;
-import pages.LoginPage;
-import pages.ProjectDetailsPage;
-import pages.ProjectsListPage;
+import pages.*;
 import tests.CreateCaseTest;
 import utils.PropertyReader;
 
@@ -66,6 +63,7 @@ public class BaseTest {
     protected ProjectsListPage projectsListPage;
     protected ProjectDetailsPage projectDetailsPage;
     protected CreateCasePage createCasePage;
+    protected CaseDetailsPage caseDetailsPage;
     protected Faker faker;
 
     @BeforeMethod
@@ -88,6 +86,7 @@ public class BaseTest {
         projectsListPage = new ProjectsListPage();
         projectDetailsPage = new ProjectDetailsPage();
         createCasePage = new CreateCasePage();
+        caseDetailsPage = new CaseDetailsPage();
 
         USERNAME = System.getProperty("user", PropertyReader.getProperty("qase.login"));
         System.out.println(USERNAME);
