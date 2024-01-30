@@ -73,7 +73,7 @@ public class BaseTest {
             log.info("Open chrome browser");
 
             Configuration.browser = "chrome";
-            Configuration.headless = false;
+            Configuration.headless = true;
             Configuration.timeout = 10000;
 
             open();
