@@ -171,12 +171,19 @@ public class CreateCaseTest extends BaseTest {
                 requiredFieldValidationMessageShouldBeVisible();
     }
 
+    //Почему-то возвращает project list page вместо project details, если переходить по прямой ссылке к созданию TC
     @Test(description = "Fields not filled out - " +
             "project details page should appear w/o test case after clicking 'Cancel' button")
     public void nothingIsFilledOutClickCancelProjectDetailsPageShouldAppear() {
 
+        projectsListPage.
+                openProjectDetails("LOL");
+
+        projectDetailsPage.
+                isPageOpened().
+                clickCreateCaseButton();
+
         createCasePage.
-                openPage("/case/LOL/create").
                 isPageOpened().
                 clickCancelButton();
         projectDetailsPage.
@@ -189,7 +196,7 @@ public class CreateCaseTest extends BaseTest {
     public void titleIsFilledOutClickCancelModalWindowShouldAppear() {
 
         Case caseCreationTestData = Case.builder().
-                title("Modal Window Test").
+                title("Modal Window Test 1").
                 build();
 
         createCasePage.
@@ -205,7 +212,7 @@ public class CreateCaseTest extends BaseTest {
     public void clickCancelModalWindowButtonCasePageShouldAppear() {
 
         Case caseCreationTestData = Case.builder().
-                title("Modal Window Test").
+                title("Modal Window Test 2").
                 build();
 
         createCasePage.
@@ -223,7 +230,7 @@ public class CreateCaseTest extends BaseTest {
     public void clickCrossModalWindowButtonCasePageShouldAppear() {
 
         Case caseCreationTestData = Case.builder().
-                title("Modal Window Test").
+                title("Modal Window Test 3").
                 build();
 
         createCasePage.
@@ -237,15 +244,22 @@ public class CreateCaseTest extends BaseTest {
                 isPageOpened();
     }
 
+    //Почему-то возвращает project list page вместо project details, если переходить по прямой ссылке к созданию TC
     @Test(description = "'Project details' page should appear after clicking modal window 'Close form' button")
     public void clickCloseFormModalWindowButtonProjectDetailsPageShouldAppear() {
 
         Case caseCreationTestData = Case.builder().
-                title("Modal Window Test").
+                title("Modal Window Test 4").
                 build();
 
+        projectsListPage.
+                openProjectDetails("LOL");
+
+        projectDetailsPage.
+                isPageOpened().
+                clickCreateCaseButton();
+
         createCasePage.
-                openPage("/case/LOL/create").
                 isPageOpened().
                 fillOutTestCaseForm(caseCreationTestData);
         createCasePage.

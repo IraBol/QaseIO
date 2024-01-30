@@ -43,9 +43,8 @@ package tests.base;
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import lombok.extern.log4j.Log4j2;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.ITestContext;
+import org.testng.annotations.*;
 import pages.*;
 import tests.CreateCaseTest;
 import utils.PropertyReader;
@@ -66,21 +65,39 @@ public class BaseTest {
     protected CaseDetailsPage caseDetailsPage;
     protected Faker faker;
 
-    @BeforeMethod
-    public void setup() {
-        log.info("Open chrome browser");
+    @Parameters({"browser"})
+    @BeforeMethod(description = "Set up browser configurations")
+    public void setup(@Optional("chrome") String browser) {
 
-        Configuration.browser = "chrome";
-        Configuration.headless = false;
-        Configuration.timeout = 10000;
+        if (browser.equalsIgnoreCase("chrome")) {
+            log.info("Open chrome browser");
 
-        open();
+            Configuration.browser = "chrome";
+            Configuration.headless = false;
+            Configuration.timeout = 10000;
 
-        getWebDriver().
-                manage().
-                window().
-                maximize();
+            open();
 
+            getWebDriver().
+                    manage().
+                    window().
+                    maximize();
+
+        } else if (browser.equals("firefox")){
+
+            log.info("Open chrome browser");
+
+            Configuration.browser = "firefox";
+            Configuration.headless = false;
+            Configuration.timeout = 10000;
+
+            open();
+
+            getWebDriver().
+                    manage().
+                    window().
+                    maximize();
+        }
         faker = new Faker();
         loginPage = new LoginPage();
         projectsListPage = new ProjectsListPage();
