@@ -43,10 +43,11 @@ package tests.base;
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import lombok.extern.log4j.Log4j2;
-import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import pages.*;
-import tests.CreateCaseTest;
 import utils.PropertyReader;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
@@ -106,9 +107,7 @@ public class BaseTest {
         caseDetailsPage = new CaseDetailsPage();
 
         USERNAME = System.getProperty("user", PropertyReader.getProperty("qase.login"));
-        System.out.println(USERNAME);
         PASSWORD = System.getProperty("password", PropertyReader.getProperty("qase.password"));
-        System.out.println(PASSWORD);
 
         log.info("Login w/ correct credentials");
         loginPage.
