@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Qase Smoke UI Test" thread-count="3" parallel="classes">
+<suite name="Qase Smoke UI Test" thread-count="3" parallel="tests">
 
     <listeners>
         <listener class-name="tests.base.AnnotationTransformer"></listener>
@@ -9,14 +9,14 @@
 
     <test name="Thread #1">
         <classes>
-            <class name="tests.LoginTest"/>
-            <class name="tests.CreateCaseTest"/>
+            <class name="tests.LoginUITest"/>
+            <class name="tests.CreateCaseUITest"/>
         </classes>
     </test> <!-- Test -->
 
     <test name="Thread #2">
         <classes>
-            <class name="tests.CaseDetailsTest"/>
+            <class name="tests.CaseDetailsUITest"/>
         </classes>
     </test> <!-- Test -->
 

@@ -44,10 +44,8 @@ WebElement searchBox = driver.findElement(By.name("q"));
  */
 package wrappers;
 
-import com.codeborne.selenide.Condition;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 
 import java.io.File;
 
@@ -56,7 +54,6 @@ import static com.codeborne.selenide.Selenide.$;
 @Log4j2
 public class Input {
 
-    //_________________________________________CREATE TEST CASE PAGE__________________________________________________\\
     private static final String TC_INPUT_XPATH = "//label[text()='%s']/following-sibling::*/input[@id='%s']";
     private static final String TC_ADD_ATTACHMENT_BUTTON_XPATH = "//button[text()='Add attachment']";
     private static final String TC_INPUT_FILE_XPATH = "//div[@data-react-modal-body-trap][2]/following-sibling::input[@type='file']";
@@ -73,7 +70,7 @@ public class Input {
     }
 
     public void uploadFile(File file) {
-        log.info("Add attachment");
+        log.info("Add attachment '{}'", file);
         if (file != null) {
             $(By.xpath(TC_ADD_ATTACHMENT_BUTTON_XPATH)).click();
             $(By.xpath(TC_INPUT_FILE_XPATH)).uploadFile(file);
@@ -99,41 +96,6 @@ public class Input {
         log.info("Write '{}' into gherkin input field", text);
         if (text != null) {
             $(By.xpath(String.format(TC_GHERKIN_INPUT_XPATH, label, inputNumber))).sendKeys(text);
-        }
-    }
-
-    //_________________________________________TEST CASE DETAILS PAGE__________________________________________________\\
-
-    private static final String TC_DETAILS_TITLE_XPATH = "//div[text()='%s']";
-    private static final String TC_DETAILS_LOADED_ATTACHMENT_XPATH = "//h3[text()='%s']/..//*[text()='%s']/ancestor::a";
-    private static final String TC_DETAILS_GENERAL_XPATH = "//%s[text()='%s']/..//*[text()='%s']";
-
-    public void validateTestCaseDetailsTitle(String text) {
-        log.info("Test case title is'{}'", text);
-        if (text != null) {
-            $(By.xpath(String.format(TC_DETAILS_TITLE_XPATH, text))).shouldBe(Condition.visible);
-        }
-    }
-
-    public void validateGeneralTabFields(String tag, String value, String text) {
-        log.info("'{}' field contains '{}' text", value, text);
-        if (text != null) {
-            $(By.xpath(String.format(TC_DETAILS_GENERAL_XPATH, tag, value, text))).shouldBe(Condition.visible);
-        }
-    }
-
-    public void validateUploadedAttachment(String value, String attachmentTitle) {
-        log.info("'{}' field contains '{}' title", value, attachmentTitle);
-        if (attachmentTitle != null) {
-            $(By.xpath(String.format(TC_DETAILS_LOADED_ATTACHMENT_XPATH, value, attachmentTitle))).shouldBe(Condition.visible);
-        }
-    }
-
-
-    public void validatePropertiesTabFields(String tag, String value, String text) {
-        log.info("'{}' field contains '{}' text", value, text);
-        if (text != null) {
-            $(By.xpath(String.format(TC_DETAILS_GENERAL_XPATH, tag, value, text))).shouldBe(Condition.visible);
         }
     }
 }

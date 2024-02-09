@@ -1,25 +1,26 @@
 package tests;
 
 import dto.Case;
+import dto.CaseFactory;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import tests.base.BaseTest;
+import tests.base.BaseUITest;
 
 import java.io.File;
 
-public class CreateCaseTest extends BaseTest {
+public class CreateCaseUITest extends BaseUITest {
 
-    @Test(description = "Placeholder message for title field should be visible if no text input")
-    public void titleFieldPlaceholderTextShouldBeVisible() {
+    @BeforeMethod(description = "Login w/ the correct credentials")
+    public void successfulLogin() {
+
+        loginPage.
+                openPage("/login").
+                isPageOpened().
+                fillOutLoginForm(USERNAME, PASSWORD).
+                clickSignInButton();
+
         projectsListPage.
-                openProjectDetails("LOL");
-
-        projectDetailsPage.
-                isPageOpened().
-                clickCreateCaseButton();
-
-        createCasePage.
-                isPageOpened().
-                titleFieldPlaceholderTextShouldBeVisible();
+                isPageOpened();
     }
 
     @Test(description = "Success message should appear after successful test creation")
@@ -38,62 +39,18 @@ public class CreateCaseTest extends BaseTest {
         createCasePage.
                 clickSaveButton();
         createCasePage.
-                waitTillSuccessfulCaseCreationMessageAppears();
+                waitTillSuccessfulCaseCreationMessageAppears("Test case was created successfully!");
     }
 
     @Test(description = "Successfully created test case should be saved and appear on project details page")
     public void testCaseShouldBeCreatedSuccessfully() {
 
-        Case caseCreationTestData = Case.builder().
-
-                title("Diploma Test Case Title").
-                status("Draft").
-                description("This is test case description test. We test large amount of sentences. " +
-                        "We are to be sure that there are no bugs in this field.").
-                suite("Diploma suite").
-                severity("Minor").
-                priority("Low").
-                type("Smoke").
-                layer("E2E").
-                isFlaky("Yes").
-                milestone("Release 1.0").
-                behavior("Positive").
-                automationStatus(null).
-                isCheckBoxChecked(false).
-
-                preConditions("This is test case pre-condition test").
-                postConditions("This is test case post-condition test").
-                //"Lol tag", "Example tag"
-                // tags(new String[]{"Lol tag", "Example tag"}).
-
-                        addAttachment(new File("src/test/resources/Screenshot225626.jpg")).
-
-                parameterTitle("test parameter").
-                parameterValue("test value").
-
-                testCaseStepsDropdownOption("Gherkin").
-
-                gherkinStepsNumber("1").
-                gherkinStepsDropdownOption("Given").
-                gherkinStepsNumber("1").
-                gherkinStepsInput("I need to prepare some scenario to test").
-
-//                gherkinStepsNumber("2").
-//                gherkinStepsDropdownOption("When").
-//                gherkinStepsNumber("2").
-//                gherkinStepsInput("I trigger some actions").
-
-//                gherkinStepsNumber("3").
-//                gherkinStepsDropdownOption("Then").
-//                gherkinStepsNumber("3").
-//                gherkinStepsInput("I can see the expected outcome").
-
-        build();
+        Case testCase = CaseFactory.getRandom();
 
         createCasePage.
                 openPage("/case/LOL/create").
                 isPageOpened().
-                fillOutTestCaseForm(caseCreationTestData);
+                fillOutTestCaseForm(testCase);
         createCasePage.
                 clickSaveButton();
         createCasePage.waitTillCaseCreated("Diploma Test Case Title");
@@ -147,7 +104,7 @@ public class CreateCaseTest extends BaseTest {
         createCasePage.
                 clickSaveButton();
         createCasePage.
-                requiredFieldValidationMessageShouldBeVisible();
+                requiredFieldValidationMessageShouldBeVisible("Please fill out this field.");
     }
 
     @Test(description = "Required field 'Title' not filled out - " +
@@ -168,7 +125,7 @@ public class CreateCaseTest extends BaseTest {
         createCasePage.
                 clickSaveAndCreateAnotherButton();
         createCasePage.
-                requiredFieldValidationMessageShouldBeVisible();
+                requiredFieldValidationMessageShouldBeVisible("Please fill out this field.");
     }
 
     //Почему-то возвращает project list page вместо project details, если переходить по прямой ссылке к созданию TC

@@ -1,15 +1,14 @@
 package tests.base;
 
-import io.qameta.allure.Attachment;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import java.util.concurrent.TimeUnit;
+
+import static utils.AllureUtils.takeScreenshot;
+
 @Log4j2
 
 public class TestListener implements ITestListener {
@@ -23,18 +22,16 @@ public class TestListener implements ITestListener {
     public void onTestSuccess(ITestResult iTestResult) {
         log.info(String.format("======================================== FINISHED TEST %s Duration: %ss ========================================", iTestResult.getName(),
                 getExecutionTime(iTestResult)));
-        //не работает метод со скриншотом
-//        WebDriver driver = (WebDriver) iTestResult.getTestContext().getAttribute("driver");
-//        takeScreenshot(driver);
+
+        takeScreenshot();
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         log.info(String.format("======================================== FAILED TEST %s Duration: %ss ========================================", iTestResult.getName(),
                 getExecutionTime(iTestResult)));
-        //не работает метод со скриншотами c версией testng 7.8.0 - пришлось понизить до 7.4.0
-//        WebDriver driver = (WebDriver) iTestResult.getTestContext().getAttribute("driver");
-//        takeScreenshot(driver);
+
+        takeScreenshot();
     }
 
     @Override
@@ -60,9 +57,4 @@ public class TestListener implements ITestListener {
     private long getExecutionTime(ITestResult iTestResult) {
         return TimeUnit.MILLISECONDS.toSeconds(iTestResult.getEndMillis() - iTestResult.getStartMillis());
     }
-//    @Attachment(value = "screenshot", type = "image/png")
-//    private static byte[] takeScreenshot(WebDriver driver) {
-//        log.info("Take Screenshot");
-//        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-//    }
 }

@@ -54,9 +54,10 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Click sign in button")
-    public void clickSignInButton() {
+    public LoginPage clickSignInButton() {
         log.info("Click submit button");
         $(By.cssSelector(SIGN_IN_BTN_CSS)).click();
+        return this;
     }
 
     @Step("Sign out from the system")

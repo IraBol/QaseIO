@@ -24,8 +24,6 @@ public class Dropdown {
     private final String TC_MILESTONE_DROPDOWN_OPTION_XPATH = "//div[@id='modals']/following-sibling::div//*[text()='%s']";
     private final String TC_SUITE_DROPDOWN_XPATH = "//label[text()='Suite']/following-sibling::div";
     private final String TC_SUITE_DROPDOWN_OPTION_XPATH = "//label[text()='Suite']/following-sibling::div//*[text()='%s']";
-    private final String TC_TAGS_XPATH = "//div[text()='%s']/following-sibling::div[@class='row']//div[text()='Select...']";
-    private final String TC_TAGS_OPTION_XPATH = "//div[text()='%s']/following-sibling::div[@class='row']//*[text()='%s']";
     private final String TC_STEPS_DROPDOWN_XPATH = "//div[text()='Test Case Steps']/div";
     private final String TC_STEPS_DROPDOWN_OPTION_XPATH = "//div[text()='Test Case Steps']/div//*[text()='%s']";
     private static final String TC_GHERKIN_ADD_STEP_BUTTON_ID = "gherkin-add-step-btn";
@@ -53,16 +51,6 @@ public class Dropdown {
         if (option != null) {
             $(By.xpath(String.format(TC_SUITE_DROPDOWN_XPATH))).click();
             $(By.xpath(String.format(TC_SUITE_DROPDOWN_OPTION_XPATH, option))).click();
-        }
-    }
-
-    public void setTagsDropdownValue(String label, String... options) {
-        log.info("Select '{}' option inside '{}' dropdown", options, label);
-        if (options != null) {
-            for (String option : options) {
-                $(By.xpath(String.format(TC_TAGS_XPATH, label))).click();
-                actions().click($(By.xpath(String.format(TC_TAGS_OPTION_XPATH, label, option)))).perform();
-            }
         }
     }
 

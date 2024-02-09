@@ -7,9 +7,13 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import utils.PropertyReader;
 
 @Log4j2
-public abstract class BasePage implements Openable {
+public abstract class BasePage {
 
     final String BASE_URL = PropertyReader.getProperty("qase.base.page.url");
+
+    public abstract BasePage openPage(String path);
+
+    public abstract BasePage isPageOpened();
 
     protected void waitForPageLoaded() {
         log.info("Wait for page content to be loaded");

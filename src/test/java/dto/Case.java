@@ -30,7 +30,6 @@ public class Case {
     String[] tags;
     //Attachments
     File addAttachment;
-    String attachmentTitle;
     //Parameters
     String parameterTitle;
     String parameterValue;
@@ -39,4 +38,8 @@ public class Case {
     String gherkinStepsDropdownOption;
     String gherkinStepsNumber;
     String gherkinStepsInput;
+
+    //CaseDetailsPage
+    boolean isPropertiesTabCheckBoxChecked;
+    String attachmentTitle;
 }

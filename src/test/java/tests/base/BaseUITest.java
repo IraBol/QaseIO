@@ -55,7 +55,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @Log4j2
-public class BaseTest {
+public class BaseUITest {
 
     protected static String USERNAME;
     protected static String PASSWORD;
@@ -70,35 +70,28 @@ public class BaseTest {
     @BeforeMethod(description = "Set up browser configurations")
     public void setup(@Optional("chrome") String browser) {
 
+        log.info("Opening browser: '{}'", browser);
+
+        Configuration.headless = true;
+        Configuration.timeout = 10000;
+
         if (browser.equalsIgnoreCase("chrome")) {
-            log.info("Open chrome browser");
-
             Configuration.browser = "chrome";
-            Configuration.headless = true;
-            Configuration.timeout = 10000;
-
-            open();
-
-            getWebDriver().
-                    manage().
-                    window().
-                    maximize();
-
-        } else if (browser.equals("firefox")){
-
-            log.info("Open chrome browser");
-
+        } else if (browser.equals("firefox")) {
             Configuration.browser = "firefox";
-            Configuration.headless = true;
-            Configuration.timeout = 10000;
-
-            open();
-
-            getWebDriver().
-                    manage().
-                    window().
-                    maximize();
+        } else {
+            throw new IllegalArgumentException(browser + " is not recognized");
         }
+        //добавить
+        //baseUrl = get property
+        //open(baseUrl)
+        open();
+
+        getWebDriver().
+                manage().
+                window().
+                maximize();
+
         faker = new Faker();
         loginPage = new LoginPage();
         projectsListPage = new ProjectsListPage();
@@ -108,16 +101,6 @@ public class BaseTest {
 
         USERNAME = System.getProperty("user", PropertyReader.getProperty("qase.login"));
         PASSWORD = System.getProperty("password", PropertyReader.getProperty("qase.password"));
-
-        log.info("Login w/ correct credentials");
-        loginPage.
-                openPage("/login").
-                isPageOpened().
-                fillOutLoginForm(USERNAME, PASSWORD).
-                clickSignInButton();
-
-        projectsListPage.
-                isPageOpened();
     }
 
     @AfterMethod(alwaysRun = true)
