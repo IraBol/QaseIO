@@ -1,9 +1,15 @@
 package tests;
 
-import org.testng.annotations.Test;
-import tests.base.BaseTest;
+import tests.base.BaseUITest;
 
-public class ProjectsListTest extends BaseTest {
+public class ProjectsListUITest extends BaseUITest {
+
+    //Здесь проект будет создаваться через апи
+    //Далее, на юай можно обновить проект и валидировать данные, например
+
+    //можно через апи удалить проект - проверить на юай по прямой ссылке?
+
+    //и т.д.
 
 
 //    @Test

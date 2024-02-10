@@ -1,5 +1,6 @@
-package dto;
+package dto.api.response;
 
+import dto.Suite;
 import lombok.Data;
 
 @Data

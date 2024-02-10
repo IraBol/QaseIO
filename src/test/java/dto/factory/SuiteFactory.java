@@ -1,6 +1,7 @@
-package dto;
+package dto.factory;
 
 import com.github.javafaker.Faker;
+import dto.Suite;
 
 public class SuiteFactory {
 

@@ -21,6 +21,8 @@ import wrappers.Dropdown;
 import wrappers.Input;
 import wrappers.TextArea;
 
+import java.io.File;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -35,6 +37,8 @@ public class CreateCasePage extends BasePage {
     private static final String MODAL_WINDOW_CROSS_BUTTON_XPATH = "//h3[text()='Close form?']/../preceding-sibling::button";
     private static final String MODAL_WINDOW_CANCEL_BUTTON_XPATH = "//*[text()='Close form?']/following::span[text()='Cancel']";
     private static final String TC_TITLE_FIELD_ID = "title";
+    private static final String TC_INPUT_FILE_XPATH = "//div[@data-react-modal-body-trap][2]/following-sibling::input[@type='file']";
+    private static final String TC_ADD_ATTACHMENT_BUTTON_XPATH = "//button[text()='Add attachment']";
     private static final String TC_SUCCESSFUL_CREATION_FLASH_MESSAGE_XPATH = "//script[@id='flashMessages']/following::" +
             "div[@id='layout']//*[text()='%s']";
     private static final String TC_TITLE_ON_PROJECT_DETAILS_PAGE_XPATH = "//div[text()='%s']";
@@ -68,6 +72,15 @@ public class CreateCasePage extends BasePage {
         return this;
     }
 
+    //method moved here from wrappers package/class
+    public void uploadFile(File file) {
+        log.info("Add attachment '{}'", file);
+        if (file != null) {
+            $(By.xpath(TC_ADD_ATTACHMENT_BUTTON_XPATH)).click();
+            $(By.xpath(TC_INPUT_FILE_XPATH)).uploadFile(file);
+        }
+    }
+
     @Step("Fill out test case form")
     public ProjectDetailsPage fillOutTestCaseForm(Case testCase) {
         log.info("Fill out test case form with values: '{}'", testCase);
@@ -95,7 +108,7 @@ public class CreateCasePage extends BasePage {
         input.write("Pre-conditions", "0-preconditions", testCase.getPreConditions());
         input.write("Post-conditions", "0-postconditions", testCase.getPostConditions());
         //Attachments
-        input.uploadFile(testCase.getAddAttachment());
+        uploadFile(testCase.getAddAttachment());
         //Parameters
         input.writeParameterTitle("Parameter title", testCase.getParameterTitle());
         input.writeParameterValue("Parameter values", testCase.getParameterValue());

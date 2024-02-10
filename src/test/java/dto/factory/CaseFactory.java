@@ -1,6 +1,7 @@
-package dto;
+package dto.factory;
 
 import com.github.javafaker.Faker;
+import dto.Case;
 
 import java.io.File;
 
@@ -21,7 +22,7 @@ public class CaseFactory {
                 type("Smoke").
                 layer("E2E").
                 isFlaky("Yes").
-                milestone("Release 1.0").
+                milestone(null).
                 behavior("Positive").
                 automationStatus(null).
                 isCheckBoxChecked(false).

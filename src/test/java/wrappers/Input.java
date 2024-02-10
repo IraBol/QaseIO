@@ -55,8 +55,6 @@ import static com.codeborne.selenide.Selenide.$;
 public class Input {
 
     private static final String TC_INPUT_XPATH = "//label[text()='%s']/following-sibling::*/input[@id='%s']";
-    private static final String TC_ADD_ATTACHMENT_BUTTON_XPATH = "//button[text()='Add attachment']";
-    private static final String TC_INPUT_FILE_XPATH = "//div[@data-react-modal-body-trap][2]/following-sibling::input[@type='file']";
     private static final String TC_ADD_PARAMETER_BUTTON_XPATH = "//button/span[text()='Add parameter']";
     private static final String TC_PARAMETER_INPUT_XPATH = "//label[text()='%s']/following::input";
     private static final String TC_GHERKIN_INPUT_XPATH = "//div[text()='%s']/following::tr//div[text()='%s']/following::input[3]";
@@ -66,14 +64,6 @@ public class Input {
         log.info("Write '{}' into '{}' input field", text, label);
         if (text != null) {
             $(By.xpath(String.format(TC_INPUT_XPATH, label, inputId))).sendKeys(text);
-        }
-    }
-
-    public void uploadFile(File file) {
-        log.info("Add attachment '{}'", file);
-        if (file != null) {
-            $(By.xpath(TC_ADD_ATTACHMENT_BUTTON_XPATH)).click();
-            $(By.xpath(TC_INPUT_FILE_XPATH)).uploadFile(file);
         }
     }
 

@@ -1,12 +1,10 @@
 package tests;
 
 import dto.Case;
-import dto.CaseFactory;
+import dto.factory.CaseFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import tests.base.BaseUITest;
-
-import java.io.File;
 
 public class CreateCaseUITest extends BaseUITest {
 

@@ -1,5 +1,6 @@
-package dto;
+package dto.api.response;
 
+import dto.Project;
 import lombok.Data;
 import java.util.ArrayList;
 
