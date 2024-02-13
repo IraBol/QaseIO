@@ -1,12 +1,11 @@
 package tests;
 
 import lombok.extern.log4j.Log4j2;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import tests.base.BaseUITest;
+import tests.base.BaseTest;
 
 @Log4j2
-public class LoginUITest extends BaseUITest {
+public class LoginTest extends BaseTest {
 
     @Test(description = "Login w/ the correct credentials")
     public void successfulLogin() {

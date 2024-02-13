@@ -9,7 +9,7 @@ import utils.PropertyReader;
 @Log4j2
 public abstract class BasePage {
 
-    final String BASE_URL = PropertyReader.getProperty("qase.base.page.url");
+    final String BASE_URL = PropertyReader.getProperty("qase.base.url");
 
     public abstract BasePage openPage(String path);
 

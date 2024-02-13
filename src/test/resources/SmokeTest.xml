@@ -9,14 +9,14 @@
 
     <test name="Thread #1">
         <classes>
-            <class name="tests.LoginUITest"/>
-            <class name="tests.CreateCaseUITest"/>
+            <class name="tests.LoginTest"/>
+            <class name="tests.CreateCaseTest"/>
         </classes>
     </test> <!-- Test -->
 
     <test name="Thread #2">
         <classes>
-            <class name="tests.CaseDetailsUITest"/>
+            <class name="tests.CaseDetailsTest"/>
         </classes>
     </test> <!-- Test -->
 

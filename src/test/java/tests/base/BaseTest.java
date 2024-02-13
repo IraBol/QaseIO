@@ -40,6 +40,8 @@
  */
 package tests.base;
 
+import adapters.ProjectAdapter;
+import adapters.SuiteAdapter;
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import lombok.extern.log4j.Log4j2;
@@ -55,7 +57,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @Log4j2
-public class BaseUITest {
+public class BaseTest {
 
     protected static String USERNAME;
     protected static String PASSWORD;
@@ -64,7 +66,17 @@ public class BaseUITest {
     protected ProjectDetailsPage projectDetailsPage;
     protected CreateCasePage createCasePage;
     protected CaseDetailsPage caseDetailsPage;
+    protected ProjectAdapter projectAdapter;
+    protected SuiteAdapter suiteAdapter;
     protected Faker faker;
+
+    //    @BeforeSuite(description = "Clean project list before launching tests")
+//    public void deleteAllProjects() {
+//        ArrayList<Project> projects = projectAdapter.getAllProjects().getEntities();
+//            for (Project project : projects) {
+//                projectAdapter.deleteProjectByCode(project.getCode());
+//            }
+//        }
 
     @Parameters({"browser"})
     @BeforeMethod(description = "Set up browser configurations")
@@ -72,7 +84,7 @@ public class BaseUITest {
 
         log.info("Opening browser: '{}'", browser);
 
-        Configuration.headless = true;
+        Configuration.headless = false;
         Configuration.timeout = 10000;
 
         if (browser.equalsIgnoreCase("chrome")) {
@@ -82,9 +94,7 @@ public class BaseUITest {
         } else {
             throw new IllegalArgumentException(browser + " is not recognized");
         }
-        //добавить
-        //baseUrl = get property
-        //open(baseUrl)
+
         open();
 
         getWebDriver().
@@ -98,6 +108,8 @@ public class BaseUITest {
         projectDetailsPage = new ProjectDetailsPage();
         createCasePage = new CreateCasePage();
         caseDetailsPage = new CaseDetailsPage();
+        projectAdapter = new ProjectAdapter();
+        suiteAdapter = new SuiteAdapter();
 
         USERNAME = System.getProperty("user", PropertyReader.getProperty("qase.login"));
         PASSWORD = System.getProperty("password", PropertyReader.getProperty("qase.password"));

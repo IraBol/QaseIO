@@ -4,9 +4,9 @@ import dto.Case;
 import dto.factory.CaseFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import tests.base.BaseUITest;
+import tests.base.BaseTest;
 
-public class CaseDetailsUITest extends BaseUITest {
+public class CaseDetailsTest extends BaseTest {
 
     @BeforeMethod(description = "Login w/ the correct credentials")
     public void successfulLogin() {

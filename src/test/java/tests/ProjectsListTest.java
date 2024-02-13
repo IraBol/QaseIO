@@ -1,8 +1,8 @@
 package tests;
 
-import tests.base.BaseUITest;
+import tests.base.BaseTest;
 
-public class ProjectsListUITest extends BaseUITest {
+public class ProjectsListTest extends BaseTest {
 
     //Здесь проект будет создаваться через апи
     //Далее, на юай можно обновить проект и валидировать данные, например

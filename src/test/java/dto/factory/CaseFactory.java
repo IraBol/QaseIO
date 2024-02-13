@@ -16,7 +16,7 @@ public class CaseFactory {
                 title(faker.book().title()).
                 status("Draft").
                 description(faker.lorem().paragraph(1)).
-                suite("Diploma suite").
+                suite("Test Suite").
                 severity("Minor").
                 priority("Low").
                 type("Smoke").
