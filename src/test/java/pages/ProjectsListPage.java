@@ -64,4 +64,14 @@ public class ProjectsListPage extends BasePage {
         waitForPageLoaded();
         return new ProjectDetailsPage();
     }
+
+    public void openRowsPerPageDropdown() {
+        $(By.xpath("//label[text()='Rows per page:']/following-sibling::div//span")).shouldBe(Condition.visible).click();
+    }
+
+    public ProjectsListPage setRowsPerPageDropdownOption(String option) {
+        $(By.xpath(String.format("//label[text()='Rows per page:']/following-sibling::div//*[text()='%s']", option))).shouldBe(Condition.visible).click();
+        waitForPageLoaded();
+        return this;
+    }
 }

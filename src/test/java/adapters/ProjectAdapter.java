@@ -92,7 +92,7 @@ public class ProjectAdapter extends MainAdapter {
                 .get("/project/" + code)
                 .then()
                 .log()
-                .ifValidationFails()
+                .all()
                 .statusCode(200)
                 .extract()
                 .body()
@@ -119,7 +119,7 @@ public class ProjectAdapter extends MainAdapter {
 
     @Step("Get all projects with title = '{project.title}' and code = '{project.code}'")
     public Project getAllProjects() {
-        log.info("Get all projects with title = '{project.title}' and code = '{project.code}'");
+        log.info("Get all projects");
 
         return given()
                 .spec(spec)
@@ -130,7 +130,7 @@ public class ProjectAdapter extends MainAdapter {
                 .get("/project")
                 .then()
                 .log()
-                .ifValidationFails()
+                .all()
                 .statusCode(200)
                 .extract()
                 .body()
