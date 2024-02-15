@@ -44,13 +44,13 @@ import adapters.ProjectAdapter;
 import adapters.SuiteAdapter;
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
+import dto.Project;
 import lombok.extern.log4j.Log4j2;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 import pages.*;
 import utils.PropertyReader;
+
+import java.util.ArrayList;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
@@ -71,13 +71,14 @@ public class BaseTest {
     protected SuiteAdapter suiteAdapter;
     protected Faker faker;
 
-    //    @BeforeSuite(description = "Clean project list before launching tests")
-//    public void deleteAllProjects() {
-//        ArrayList<Project> projects = projectAdapter.getAllProjects().getEntities();
-//            for (Project project : projects) {
-//                projectAdapter.deleteProjectByCode(project.getCode());
-//            }
-//        }
+    @BeforeSuite(description = "Clean project list before launching tests")
+    public void deleteAllProjects() {
+        projectAdapter = new ProjectAdapter();
+        ArrayList<Project> projects = projectAdapter.getAllProjects().getEntities();
+        for (Project project : projects) {
+            projectAdapter.deleteProjectByCode(project.getCode());
+        }
+    }
 
     @Parameters({"browser"})
     @BeforeMethod(description = "Set up browser configurations")

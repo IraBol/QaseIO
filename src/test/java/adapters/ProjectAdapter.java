@@ -123,6 +123,7 @@ public class ProjectAdapter extends MainAdapter {
 
         return given()
                 .spec(spec)
+                .param("limit", 100)
                 .log()
                 .all()
                 .when()
