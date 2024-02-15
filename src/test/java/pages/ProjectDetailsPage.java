@@ -14,6 +14,7 @@ public class ProjectDetailsPage extends BasePage {
     private static final String CREATE_SUITE_BUTTON_ID = "create-suite-button";
     private static final String CREATE_CASE_BUTTON_ID = "create-case-button";
     private static final String PROJECT_NOT_FOUND_ERROR_XPATH = "//h1[text()='%s']";
+    private static final String OPEN_TEST_CASE_DETAILS_PAGE = "//div[text()='%s']";
 
     @Override
     @Step("Open project details page")
@@ -35,6 +36,14 @@ public class ProjectDetailsPage extends BasePage {
             log.error("Project details page is not opened");
         }
         return this;
+    }
+
+    @Step("Open test case details page")
+    public CaseDetailsPage openCaseDetailsPage(String caseTitle) {
+        log.info("Open '{}' test case details page", caseTitle);
+        $(By.xpath(String.format(OPEN_TEST_CASE_DETAILS_PAGE, caseTitle))).click();
+        waitForPageLoaded();
+        return new CaseDetailsPage();
     }
 
     @Step("Click create test case button")

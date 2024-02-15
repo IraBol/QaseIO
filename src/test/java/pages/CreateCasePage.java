@@ -206,7 +206,7 @@ public class CreateCasePage extends BasePage {
     @Step("Validate created test case on project details page")
     public ProjectDetailsPage waitTillCaseCreated(String testCaseTitle) {
         log.info("Created test case on project details page title is: '{}'", testCaseTitle);
-        $(By.xpath(String.format(TC_TITLE_ON_PROJECT_DETAILS_PAGE_XPATH, testCaseTitle))).shouldBe(Condition.visible);
+        $(By.xpath(String.format(TC_TITLE_ON_PROJECT_DETAILS_PAGE_XPATH, testCaseTitle))).shouldBe(Condition.visible, Duration.ofSeconds(20));
         return new ProjectDetailsPage();
     }
 

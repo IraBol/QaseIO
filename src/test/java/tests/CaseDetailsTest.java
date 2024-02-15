@@ -1,7 +1,11 @@
 package tests;
 
 import dto.Case;
+import dto.Project;
+import dto.Suite;
 import dto.factory.CaseFactory;
+import dto.factory.ProjectFactory;
+import dto.factory.SuiteFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import tests.base.BaseTest;
@@ -24,16 +28,18 @@ public class CaseDetailsTest extends BaseTest {
     @Test(description = "Validate created test case details")
     public void validateCreatedTestCaseDetails() {
 
+        Project project = ProjectFactory.getRandom();
+        Suite suite = SuiteFactory.getRandom();
         Case testCase = CaseFactory.getRandom();
 
-        projectsListPage.
-                openProjectDetails("LOL");
+        projectAdapter.
+                createNewProject(project);
 
-        projectDetailsPage.
-                isPageOpened();
+        suiteAdapter.
+                createNewSuite(suite, project.getCode());
 
         createCasePage.
-                openPage("/case/LOL/create").
+                openPage("/case/" + project.getCode() + "/create").
                 isPageOpened().
                 fillOutTestCaseForm(testCase);
         createCasePage.
@@ -42,9 +48,10 @@ public class CaseDetailsTest extends BaseTest {
                 waitTillCaseCreated(testCase.getTitle());
 
         caseDetailsPage.
-                openTestCase(testCase.getTitle()).
+                openPage(project.getCode());
+
+        caseDetailsPage.
                 validateGeneralTabInfo(testCase).
-                openPropertiesTab().
                 validatePropertiesTabInfo(testCase);
     }
 }

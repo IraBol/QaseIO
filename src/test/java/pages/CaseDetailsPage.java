@@ -6,9 +6,6 @@ import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import wrappers.CheckBox;
-import wrappers.Input;
-
-import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -18,8 +15,7 @@ public class CaseDetailsPage extends BasePage {
 
     private static final String GENERAL_BUTTON_XPATH = "//button[text()='General']";
     private static final String PROPERTIES_BUTTON_XPATH = "//button[text()='Properties']";
-    private static final String TC_TITLE_ON_PROJECT_DETAILS_PAGE_XPATH = "//div[text()='%s']";
-    private static final String TC_DETAILS_TITLE_XPATH = "//div[text()='%s']";
+    private static final String TC_DETAILS_TITLE_XPATH = "//h1/div[text()='%s']";
     private static final String TC_DETAILS_LOADED_ATTACHMENT_XPATH = "//h3[text()='%s']/..//*[text()='%s']/ancestor::a";
     private static final String TC_DETAILS_GENERAL_XPATH = "//%s[text()='%s']/..//*[text()='%s']";
 
@@ -27,7 +23,7 @@ public class CaseDetailsPage extends BasePage {
     @Step("Open test case details page")
     public CaseDetailsPage openPage(String path) {
         log.info("Open test case details page");
-        open(String.format(BASE_URL + "%s", path));
+        open(String.format(BASE_URL + "/case/%s-1", path));
         waitForPageLoaded();
         return this;
     }
@@ -50,15 +46,6 @@ public class CaseDetailsPage extends BasePage {
         if (text != null) {
             $(By.xpath(String.format(TC_DETAILS_TITLE_XPATH, text))).shouldBe(Condition.visible);
         }
-    }
-
-    @Step("Open relevant test case")
-    public CaseDetailsPage openTestCase(String testCaseTitle) {
-        log.info("Open '{}' test case", testCaseTitle);
-        $(By.xpath(String.format(TC_TITLE_ON_PROJECT_DETAILS_PAGE_XPATH, testCaseTitle))).shouldBe(Condition.visible, Duration.ofSeconds(10)).
-                click();
-        waitForPageLoaded();
-        return this;
     }
 
     @Step("Open properties tab")

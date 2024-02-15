@@ -26,6 +26,8 @@ public class LoginTest extends BaseTest {
         loginPage.
                 openPage("/login").
                 isPageOpened().
+                fillOutLoginForm(USERNAME, PASSWORD).
+                clickSignInButton().
                 signOut().
                 isPageOpened();
     }
