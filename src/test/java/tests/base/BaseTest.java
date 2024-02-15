@@ -64,6 +64,7 @@ public class BaseTest {
     protected LoginPage loginPage;
     protected ProjectsListPage projectsListPage;
     protected ProjectDetailsPage projectDetailsPage;
+    protected ProjectSettingsPage projectSettingsPage;
     protected CreateCasePage createCasePage;
     protected CaseDetailsPage caseDetailsPage;
     protected ProjectAdapter projectAdapter;
@@ -106,6 +107,7 @@ public class BaseTest {
         loginPage = new LoginPage();
         projectsListPage = new ProjectsListPage();
         projectDetailsPage = new ProjectDetailsPage();
+        projectSettingsPage = new ProjectSettingsPage();
         createCasePage = new CreateCasePage();
         caseDetailsPage = new CaseDetailsPage();
         projectAdapter = new ProjectAdapter();

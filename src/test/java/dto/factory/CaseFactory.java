@@ -27,14 +27,14 @@ public class CaseFactory {
                 automationStatus(null).
                 isCheckBoxChecked(false).
                 //this field is for Case Details page
-                isPropertiesTabCheckBoxChecked(true).
+                        isPropertiesTabCheckBoxChecked(true).
 
                 preConditions("This is test case pre-condition test").
                 postConditions("This is test case post-condition test").
 
                 addAttachment(new File("src/test/resources/Screenshot225626.jpg")).
                 //this field is for Case Details page
-                attachmentTitle("Screenshot225626.jpg").
+                        attachmentTitle("Screenshot225626.jpg").
 
                 parameterTitle("test parameter").
                 parameterValue("test value").

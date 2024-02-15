@@ -6,6 +6,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
 @Log4j2
 public class AllureUtils {
 
@@ -13,7 +14,7 @@ public class AllureUtils {
     @Attachment(value = "screenshot", type = "image/png")
     public static byte[] takeScreenshot() {
         log.info("Take Screenshot");
-        if(getWebDriver() != null) {
+        if (getWebDriver() != null) {
             return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
         } else {
             return null;

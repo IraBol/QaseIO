@@ -13,12 +13,13 @@ public class ProjectDetailsPage extends BasePage {
 
     private static final String CREATE_SUITE_BUTTON_ID = "create-suite-button";
     private static final String CREATE_CASE_BUTTON_ID = "create-case-button";
+    private static final String PROJECT_NOT_FOUND_ERROR_XPATH = "//h1[text()='%s']";
 
     @Override
     @Step("Open project details page")
     public ProjectDetailsPage openPage(String path) {
         log.info("Open project details page");
-        open(String.format(BASE_URL + "%s", path));
+        open(String.format(BASE_URL + "/project/%s", path));
         waitForPageLoaded();
         return this;
     }
@@ -36,9 +37,20 @@ public class ProjectDetailsPage extends BasePage {
         return this;
     }
 
+    @Step("Click create test case button")
     public CreateCasePage clickCreateCaseButton() {
+        log.info("Click create test case button");
+
         $(By.id(CREATE_CASE_BUTTON_ID)).click();
         waitForPageLoaded();
         return new CreateCasePage();
+    }
+
+    @Step("Wait till project not found error appears")
+    public ProjectDetailsPage waitTillProjectNotFoundErrorAppears(String error) {
+        log.info("Wait till project not found error appears");
+
+        $(By.xpath(String.format(PROJECT_NOT_FOUND_ERROR_XPATH, error))).shouldBe(Condition.visible);
+        return this;
     }
 }

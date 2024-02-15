@@ -22,6 +22,7 @@ import wrappers.Input;
 import wrappers.TextArea;
 
 import java.io.File;
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -38,6 +39,18 @@ public class CreateCasePage extends BasePage {
     private static final String MODAL_WINDOW_CANCEL_BUTTON_XPATH = "//*[text()='Close form?']/following::span[text()='Cancel']";
     private static final String TC_TITLE_FIELD_ID = "title";
     private static final String TC_INPUT_FILE_XPATH = "//div[@data-react-modal-body-trap][2]/following-sibling::input[@type='file']";
+    private final String TC_MILESTONE_DROPDOWN_XPATH = "//div[@id='milestoneGroup']//following::div";
+    private final String TC_MILESTONE_DROPDOWN_OPTION_XPATH = "//div[@id='modals']/following-sibling::div//*[text()='%s']";
+    private final String TC_SUITE_DROPDOWN_XPATH = "//label[text()='Suite']/following-sibling::div";
+    private final String TC_SUITE_DROPDOWN_OPTION_XPATH = "//label[text()='Suite']/following-sibling::div//*[text()='%s']";
+    private final String TC_STEPS_DROPDOWN_XPATH = "//div[text()='Test Case Steps']/div";
+    private final String TC_STEPS_DROPDOWN_OPTION_XPATH = "//div[text()='Test Case Steps']/div//*[text()='%s']";
+    private static final String TC_GHERKIN_ADD_STEP_BUTTON_ID = "gherkin-add-step-btn";
+    private static final String TC_GHERKIN_STEPS_DROPDOWN_XPATH = "//div[text()='%s']/following::tr//div[text()='%s']/following::div";
+    private static final String TC_GHERKIN_STEPS_DROPDOWN_OPTION_XPATH = "//div[text()='%s']/following::tr//div[text()='%s']/following::div[text()='%s']";
+    private static final String TC_ADD_PARAMETER_BUTTON_XPATH = "//button/span[text()='Add parameter']";
+    private static final String TC_PARAMETER_INPUT_XPATH = "//label[text()='%s']/following::input";
+    private static final String TC_GHERKIN_INPUT_XPATH = "//div[text()='%s']/following::tr//div[text()='%s']/following::input[3]";
     private static final String TC_ADD_ATTACHMENT_BUTTON_XPATH = "//button[text()='Add attachment']";
     private static final String TC_SUCCESSFUL_CREATION_FLASH_MESSAGE_XPATH = "//script[@id='flashMessages']/following::" +
             "div[@id='layout']//*[text()='%s']";
@@ -81,6 +94,68 @@ public class CreateCasePage extends BasePage {
         }
     }
 
+    //method moved here from wrappers package/class
+    public void setMilestoneDropdownValue(String option) {
+        log.info("Select '{}' option inside milestone dropdown", option);
+        if (option != null) {
+            $(By.xpath(String.format(TC_MILESTONE_DROPDOWN_XPATH))).click();
+            $(By.xpath(String.format(TC_MILESTONE_DROPDOWN_OPTION_XPATH, option))).click();
+        }
+    }
+
+    //method moved here from wrappers package/class
+    public void setSuiteDropdownValue(String option) {
+        log.info("Select '{}' option inside suite dropdown", option);
+        if (option != null) {
+            $(By.xpath(String.format(TC_SUITE_DROPDOWN_XPATH))).click();
+            $(By.xpath(String.format(TC_SUITE_DROPDOWN_OPTION_XPATH, option))).click();
+        }
+    }
+
+    //method moved here from wrappers package/class
+    public void setTestCaseStepsDropdownValue(String option) {
+        log.info("Select '{}' option inside test case steps dropdown", option);
+        if (option != null) {
+            $(By.xpath(String.format(TC_STEPS_DROPDOWN_XPATH))).click();
+            $(By.xpath(String.format(TC_STEPS_DROPDOWN_OPTION_XPATH, option))).click();
+        }
+    }
+
+    //method moved here from wrappers package/class
+    public void setGherkinStepsDropdownValue(String label, String inputNumber, String option) {
+        log.info("Select '{}' option inside gherkin steps dropdown", option);
+        if (option != null) {
+            $(By.id(TC_GHERKIN_ADD_STEP_BUTTON_ID)).click();
+            $(By.xpath(String.format(TC_GHERKIN_STEPS_DROPDOWN_XPATH, label, inputNumber))).click();
+            $(By.xpath(String.format(TC_GHERKIN_STEPS_DROPDOWN_OPTION_XPATH, label, inputNumber, option))).shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
+        }
+    }
+
+    //method moved here from wrappers package/class
+    public void writeParameterTitle(String label, String text) {
+        log.info("Write '{}' into '{}' input field", text, label);
+        if (text != null) {
+            $(By.xpath(TC_ADD_PARAMETER_BUTTON_XPATH)).click();
+            $(By.xpath(String.format(TC_PARAMETER_INPUT_XPATH, label))).sendKeys(text);
+        }
+    }
+
+    //method moved here from wrappers package/class
+    public void writeParameterValue(String label, String text) {
+        log.info("Write '{}' into '{}' input field", text, label);
+        if (text != null) {
+            $(By.xpath(String.format(TC_PARAMETER_INPUT_XPATH, label))).sendKeys(text);
+        }
+    }
+
+    //method moved here from wrappers package/class
+    public void writeGherkinSteps(String label, String inputNumber, String text) {
+        log.info("Write '{}' into gherkin input field", text);
+        if (text != null) {
+            $(By.xpath(String.format(TC_GHERKIN_INPUT_XPATH, label, inputNumber))).sendKeys(text);
+        }
+    }
+
     @Step("Fill out test case form")
     public ProjectDetailsPage fillOutTestCaseForm(Case testCase) {
         log.info("Fill out test case form with values: '{}'", testCase);
@@ -94,13 +169,13 @@ public class CreateCasePage extends BasePage {
         input.write("Title", "title", testCase.getTitle());
         dropdown.setDropdownValue("Status", testCase.getStatus());
         textArea.write("Description", testCase.getDescription());
-        dropdown.setSuiteDropdownValue(testCase.getSuite());
+        setSuiteDropdownValue(testCase.getSuite());
         dropdown.setDropdownValue("Severity", testCase.getSeverity());
         dropdown.setDropdownValue("Priority", testCase.getPriority());
         dropdown.setDropdownValue("Type", testCase.getType());
         dropdown.setDropdownValue("Layer", testCase.getLayer());
         dropdown.setDropdownValue("Is flaky", testCase.getIsFlaky());
-        dropdown.setMilestoneDropdownValue(testCase.getMilestone());
+        setMilestoneDropdownValue(testCase.getMilestone());
         dropdown.setDropdownValue("Behavior", testCase.getBehavior());
         dropdown.setDropdownValue("Automation status", testCase.getAutomationStatus());
         checkBox.selectCheckBoxOption("To be automated", testCase.isCheckBoxChecked());
@@ -110,13 +185,13 @@ public class CreateCasePage extends BasePage {
         //Attachments
         uploadFile(testCase.getAddAttachment());
         //Parameters
-        input.writeParameterTitle("Parameter title", testCase.getParameterTitle());
-        input.writeParameterValue("Parameter values", testCase.getParameterValue());
+        writeParameterTitle("Parameter title", testCase.getParameterTitle());
+        writeParameterValue("Parameter values", testCase.getParameterValue());
         //Test Case Steps
-        dropdown.setTestCaseStepsDropdownValue(testCase.getTestCaseStepsDropdownOption());
+        setTestCaseStepsDropdownValue(testCase.getTestCaseStepsDropdownOption());
         //Given
-        dropdown.setGherkinStepsDropdownValue("Test Case Steps", testCase.getGherkinStepsNumber(), testCase.getGherkinStepsDropdownOption());
-        input.writeGherkinSteps("Test Case Steps", testCase.getGherkinStepsNumber(), testCase.getGherkinStepsInput());
+        setGherkinStepsDropdownValue("Test Case Steps", testCase.getGherkinStepsNumber(), testCase.getGherkinStepsDropdownOption());
+        writeGherkinSteps("Test Case Steps", testCase.getGherkinStepsNumber(), testCase.getGherkinStepsInput());
 
         return new ProjectDetailsPage();
     }

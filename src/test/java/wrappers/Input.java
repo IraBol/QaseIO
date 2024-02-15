@@ -55,37 +55,11 @@ import static com.codeborne.selenide.Selenide.$;
 public class Input {
 
     private static final String TC_INPUT_XPATH = "//label[text()='%s']/following-sibling::*/input[@id='%s']";
-    private static final String TC_ADD_PARAMETER_BUTTON_XPATH = "//button/span[text()='Add parameter']";
-    private static final String TC_PARAMETER_INPUT_XPATH = "//label[text()='%s']/following::input";
-    private static final String TC_GHERKIN_INPUT_XPATH = "//div[text()='%s']/following::tr//div[text()='%s']/following::input[3]";
-
 
     public void write(String label, String inputId, String text) {
         log.info("Write '{}' into '{}' input field", text, label);
         if (text != null) {
             $(By.xpath(String.format(TC_INPUT_XPATH, label, inputId))).sendKeys(text);
-        }
-    }
-
-    public void writeParameterTitle(String label, String text) {
-        log.info("Write '{}' into '{}' input field", text, label);
-        if (text != null) {
-            $(By.xpath(TC_ADD_PARAMETER_BUTTON_XPATH)).click();
-            $(By.xpath(String.format(TC_PARAMETER_INPUT_XPATH, label))).sendKeys(text);
-        }
-    }
-
-    public void writeParameterValue(String label, String text) {
-        log.info("Write '{}' into '{}' input field", text, label);
-        if (text != null) {
-            $(By.xpath(String.format(TC_PARAMETER_INPUT_XPATH, label))).sendKeys(text);
-        }
-    }
-
-    public void writeGherkinSteps(String label, String inputNumber, String text) {
-        log.info("Write '{}' into gherkin input field", text);
-        if (text != null) {
-            $(By.xpath(String.format(TC_GHERKIN_INPUT_XPATH, label, inputNumber))).sendKeys(text);
         }
     }
 }

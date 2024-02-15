@@ -1,11 +1,10 @@
 package adapters;
 
 import dto.Suite;
-import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
 
-public class SuiteAdapter extends MainAdapter{
+public class SuiteAdapter extends MainAdapter {
 
     public void createNewSuite(Suite suite, String code) {
 

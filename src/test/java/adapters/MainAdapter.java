@@ -10,7 +10,8 @@ public abstract class MainAdapter {
 
     RequestSpecification spec;
     protected final static String BASE_API_URL = System.getProperty("url", PropertyReader.getProperty("qase.api.url"));
-    protected static String TOKEN = System.getProperty("token", PropertyReader.getProperty("qase.api.token"));;
+    protected static String TOKEN = System.getProperty("token", PropertyReader.getProperty("qase.api.token"));
+    ;
 
     public MainAdapter() {
         setup();
@@ -18,8 +19,8 @@ public abstract class MainAdapter {
 
     public void setup() {
 
-         spec = given()
-                 .header("Token", TOKEN)
-                 .contentType(ContentType.JSON);
+        spec = given()
+                .header("Token", TOKEN)
+                .contentType(ContentType.JSON);
     }
 }

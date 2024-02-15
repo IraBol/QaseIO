@@ -8,8 +8,9 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+
 @Log4j2
-public class CreateProjectPage extends BasePage{
+public class CreateProjectPage extends BasePage {
 
     private static final String PROJECT_NAME_INPUT_ID = "project-name";
 
@@ -32,7 +33,7 @@ public class CreateProjectPage extends BasePage{
         try {
             $(By.cssSelector(CREATE_PROJECT_BUTTON_CSS)).shouldBe(Condition.visible);
         } catch (Exception e) {
-           log.error("Create project page is not opened");
+            log.error("Create project page is not opened");
         }
         return this;
     }
