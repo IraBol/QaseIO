@@ -85,7 +85,7 @@ public class BaseTest {
 
         log.info("Opening browser: '{}'", browser);
 
-        Configuration.headless = false;
+        Configuration.headless = true;
         Configuration.timeout = 10000;
 
         if (browser.equalsIgnoreCase("chrome")) {
