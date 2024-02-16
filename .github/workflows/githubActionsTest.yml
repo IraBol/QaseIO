@@ -28,11 +28,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Run Smoke Tests
-        run: mvn clean test -Duser=$USER -Dpassword=$PASSWORD -Durl=$URL -Dtoken=$TOKEN -DsuiteXmlFile='src/test/resources/SmokeTest.xml'
+        run: mvn clean test -Duser=$USER -Dpassword=$PASSWORD -Dtoken=$TOKEN -DsuiteXmlFile='src/test/resources/SmokeTest.xml'
         env:
           USER: ${{ secrets.QASE_LOGIN }}
           PASSWORD: ${{ secrets.QASE_PASSWORD }}
-          URL: ${{ secrets.QASE_API_URL }}
           TOKEN: ${{ secrets.QASE_API_TOKEN }}
 
 
