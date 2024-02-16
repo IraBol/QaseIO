@@ -1,6 +1,6 @@
 /*
-
 Метод с учетом return type
+
 public String createNewProject(Project project) {
 
         given()
@@ -15,39 +15,12 @@ public String createNewProject(Project project) {
                 .statusCode(200);
         return project.getCode();
     }
-Нужно разобраться как валидировать отдельные поля
-пока не работает
 
-    public Project validateCreatedProjectFields(String code, Project project) {
-        ProjectApiResponse response = given()
-                .header("Token", "50da5f3f31620d1585a6352f1999b17f4cc3e74fff66587ff186a4532cb4f31d")
-                .contentType(ContentType.JSON)
-                .log().all()
-                .when()
-                .get("https://api.qase.io/v1/project/" + code)
-                .then()
-                .log().all()
-                .statusCode(200)
-                .extract()
-                .body()
-                .as(ProjectApiResponse.class);
-        return response.getResult();
+Залогировать всё
+.log.all
 
-//        assert response.getResult().getTitle().equals("bla");
-
-// WHEN
-//        .when()
-//                .post("/v1/create")
-//
-//                // THEN
-//                .then()
-//                .assertThat().statusCode(200)
-//                .body("status", equalTo("success"))
-//                .body("data.name", equalTo("GsonTest"))
-//                .body("data.salary", equalTo(50000))
-//                .body("data.age", equalTo(25))
-//                .body("message", equalTo("Successfully! Record has been added."))
-//                .log().body();
+Залогировать если тест не прошла валидация
+.ifValidationFails()
  */
 
 package adapters;
@@ -92,7 +65,7 @@ public class ProjectAdapter extends MainAdapter {
                 .get("/project/" + code)
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(200)
                 .extract()
                 .body()
@@ -131,7 +104,7 @@ public class ProjectAdapter extends MainAdapter {
                 .get("/project")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(200)
                 .extract()
                 .body()

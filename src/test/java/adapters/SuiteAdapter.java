@@ -18,7 +18,7 @@ public class SuiteAdapter extends MainAdapter {
                 .post("/suite/" + code)
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(200);
     }
 }
