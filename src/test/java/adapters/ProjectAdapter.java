@@ -79,6 +79,7 @@ public class ProjectAdapter extends MainAdapter {
 
         given()
                 .spec(spec)
+                .param("limit", 100)
                 .log()
                 .all()
                 .when()
