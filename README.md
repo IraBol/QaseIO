@@ -5,7 +5,7 @@ ___
 
 ## Technology stack:
 
-###### <ins>Core<ins>:
+##### <ins>Core<ins>:
 
 ![Icon of java](src/test/resources/icon-java.png) Java 
 
@@ -23,13 +23,13 @@ ___
 
 ![Icon of maven](src/test/resources/icon-maven.png) Maven
 
-###### <ins>Reports and logs</ins>:
+##### <ins>Reports and logs</ins>:
 
 ![Icon of allure](src/test/resources/icon-allure.png) Allure
 
 ![Icon of log4j](src/test/resources/icon-log4j.png) Log4j
 
-###### <ins>CI</ins>: 
+##### <ins>CI</ins>: 
 
 ![Icon of maven](src/test/resources/icon-gitactions.png) GitHub Actions
 
