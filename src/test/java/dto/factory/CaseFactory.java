@@ -32,9 +32,9 @@ public class CaseFactory {
                 preConditions("This is test case pre-condition test").
                 postConditions("This is test case post-condition test").
 
-                addAttachment(new File("src/test/resources/Screenshot225626.jpg")).
+                addAttachment(new File("src/test/resources/testImg1.jpg")).
                 //this field is for Case Details page
-                        attachmentTitle("Screenshot225626.jpg").
+                        attachmentTitle("testImg1.jpg").
 
                 parameterTitle("test parameter").
                 parameterValue("test value").

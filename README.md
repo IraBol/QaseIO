@@ -5,25 +5,33 @@ ___
 
 ## Technology stack:
 
-Core:
+###### <ins>Core<ins>:
 
-* Java
-* TestNG
-* Selenium
-* Selenide
-* Rest Assured
-* Gson
-* Lombok
-* Maven
+![Icon of java](src/test/resources/icon-java.png) Java 
 
-Reports and logs:
+![Icon of testng](src/test/resources/icon-testng.png) TestNG
 
-* Allure
-* Log4j2
+![Icon of selenium](src/test/resources/icon-selenium.png) Selenium
 
-CI:
+![Icon of selenide](src/test/resources/icon-selenide.png) Selenide
 
-* GitHub actions
+![Icon of rest](src/test/resources/icon-rest.png) Rest Assured
+
+![Icon of gson](src/test/resources/icon-gson.png) Gson
+
+![Icon of lombok](src/test/resources/icon-lombok.png) Lombok
+
+![Icon of maven](src/test/resources/icon-maven.png) Maven
+
+###### <ins>Reports and logs</ins>:
+
+![Icon of allure](src/test/resources/icon-allure.png) Allure
+
+![Icon of log4j](src/test/resources/icon-log4j.png) Log4j
+
+###### <ins>CI</ins>: 
+
+![Icon of maven](src/test/resources/icon-gitactions.png) GitHub Actions
 
 ___
 
