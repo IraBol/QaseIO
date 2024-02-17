@@ -17,7 +17,7 @@ public class AllureUtils {
         if (getWebDriver() != null) {
             return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
         } else {
-            return null;
+            throw new NullPointerException("Driver is null, screenshot can't be taken");
         }
     }
 }
