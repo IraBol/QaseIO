@@ -1,7 +1,7 @@
 #https://springframework.guru/log4j-2-configuration-using-yaml/
 #https://logging.apache.org/log4j/2.x/manual/configuration.html
 Configuration:
-  status: TRACE
+  status: INFO
   Properties:
     Property:
       - name: "DefaultPattern"
@@ -20,12 +20,12 @@ Configuration:
   Loggers:
     logger:
       - name: consoleLogger
-        level: TRACE
+        level: INFO
         additivity: true
         AppenderRef:
           ref: consoleAppender
     Root:
-      level: TRACE
+      level: INFO
       AppenderRef:
         - ref: consoleAppender
-          level: TRACE
+          level: INFO
