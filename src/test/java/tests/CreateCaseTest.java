@@ -10,8 +10,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import tests.base.BaseTest;
 
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-
 public class CreateCaseTest extends BaseTest {
 
     @BeforeMethod(description = "Login w/ the correct credentials")
