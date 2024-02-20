@@ -24,8 +24,16 @@ Configuration:
         additivity: true
         AppenderRef:
           ref: consoleAppender
+
+      - name: fileLogger
+        level: INFO
+        additivity: false
+        AppenderRef:
+        ref: fileAppender
     Root:
       level: INFO
       AppenderRef:
         - ref: consoleAppender
+          level: INFO
+        - ref: fileAppender
           level: INFO
