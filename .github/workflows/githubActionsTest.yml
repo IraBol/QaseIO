@@ -10,16 +10,17 @@ name: Run Qase Tests
 
 on:
   push:
-    branches:
-      - 'master'
-      - 'master'
-#  pull_request:
-#    branches: [ "master" ]
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
