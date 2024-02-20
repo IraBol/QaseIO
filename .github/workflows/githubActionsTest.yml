@@ -11,7 +11,7 @@ name: Run Qase Tests
 on:
   push:
     branches:
-      - 'feature/*'
+      - 'master'
       - 'master'
 #  pull_request:
 #    branches: [ "master" ]
